@@ -22,7 +22,13 @@ var Pod = require('bip-pod'),
     Twitter = new Pod({
         name : 'Twitter',
         description : 'Twitter',
-        authType : 'oauth'
+        authType : 'oauth',
+        config : {
+            "oauth": {
+                "consumerKey" : "",
+                "consumerSecret" : ""
+            }
+        }
     });
 
 Twitter.add(require('./status_update.js'));
