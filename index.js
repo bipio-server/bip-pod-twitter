@@ -20,7 +20,7 @@
  */
 var Pod = require('bip-pod'),
     Twitter = new Pod({
-        name : 'Twitter',
+        name : 'twitter',
         description : 'Twitter',
         authType : 'oauth',
         config : {
