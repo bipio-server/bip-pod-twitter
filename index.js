@@ -22,7 +22,9 @@ var Pod = require('bip-pod'),
     Twitter = new Pod({
         name : 'twitter',
         description : 'Twitter',
+        description_long : 'Twitter is an online social networking service and microblogging service that enables its users to send and read text-based messages of up to 140 characters, known as "tweets"',
         authType : 'oauth',
+        passportStrategy : require('passport-twitter').Strategy,
         config : {
             "oauth": {
                 "consumerKey" : "",

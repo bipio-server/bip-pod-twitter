@@ -1,20 +1,21 @@
-bip-pod-twitter
+![Twitter](twitter.png) bip-pod-twitter
 =======
 
-Twitter Pod for Bipio.  
+[Twitter](https://www.twitter.com/) pod for [bipio](https://bip.io).  
 
 ## Installation
 
-From bipio server install directory
+From bipio server root directory
 
     npm install bip-pod-twitter
+    ./tools/pod-install.js -a twitter [-u optional account-wide channel auto install]
 
-Auto install script will register the pod with the bipio server and add sparse
+The pod-install script is a server script which will register the pod with the bipio server and add sparse
 configuration to your NODE_ENV environment config ('default.json', staging or production)
-keyed to 'twitter'.
+keyed to 'twitter', based on the default config in the pod constructor.  It will also move the
+pod icon into the server cdn
 
 Manually restart the bipio server at your convenience.
-
 ## Actions
 
 ### status_update

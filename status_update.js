@@ -61,11 +61,12 @@ StatusUpdate.prototype.getSchema = function() {
  */
 StatusUpdate.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
     var log = this.$resource.log;
+    console.log(sysImports.auth);
     var tc = new ntwitter({
         consumer_key : this.podConfig.oauth.consumerKey,
         consumer_secret : this.podConfig.oauth.consumerSecret,
-        access_token_key : sysImports._oauth_token,
-        access_token_secret : sysImports._oauth_token_secret
+        access_token_key : sysImports.auth.oauth.token,
+        access_token_secret : sysImports.auth.oauth.secret
     });
     if (imports.status) {
         tc.updateStatus(imports.status, function(err, exports) {
