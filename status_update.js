@@ -1,8 +1,6 @@
 /**
  *
- * The Bipio Facebook Pod.  status_update action definition
- * ---------------------------------------------------------------
- *  Posts a message to users facebook wall
+ * The Bipio Twitter Pod.  status_update action definition
  * ---------------------------------------------------------------
  *
  * @author Michael Pearson <michael@cloudspark.com.au>

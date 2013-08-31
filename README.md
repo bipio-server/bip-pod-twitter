@@ -24,6 +24,10 @@ Any message this Channel receives will trigger a new Twitter Status Update
 
 Singleton, no Config.
 
+### user_timeline
+
+Retrieves the latest messages from a Twitter Users timeline
+
 [Bipio Docs](https://bip.io/docs/pods/twitter)
 
 ## License

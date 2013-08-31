@@ -30,10 +30,12 @@ var Pod = require('bip-pod'),
                 "consumerKey" : "",
                 "consumerSecret" : ""
             }
-        }
+        },
+        dataSources : [ require('./models/track_timeline') ]
     });
 
 Twitter.add(require('./status_update.js'));
+Twitter.add(require('./user_timeline.js'));
 
 // -----------------------------------------------------------------------------
 module.exports = Twitter;
