@@ -16,17 +16,8 @@ keyed to 'twitter', based on the default config in the pod constructor.  It will
 pod icon into the server cdn
 
 Manually restart the bipio server at your convenience.
-## Actions
 
-### status_update
-
-Any message this Channel receives will trigger a new Twitter Status Update
-
-Singleton, no Config.
-
-### user_timeline
-
-Retrieves the latest messages from a Twitter Users timeline
+## Documentation
 
 [Bipio Docs](https://bip.io/docs/pods/twitter)
 

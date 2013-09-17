@@ -84,19 +84,20 @@ UserTimeline.prototype.setup = function(channel, accountInfo, next) {
         self = this,
         dao = $resource.dao,
         log = $resource.log,
-        modelName = this.$resource.getDataSourceName('track_timeline'),
-        args = {
+        modelName = this.$resource.getDataSourceName('track_timeline');
+
+    (function(channel, accountInfo, next) {       
+        var args = {
             count : 1,
             include_rts : 1
         };
 
-    if (channel.config.user_id && '' !== channel.config.user_id) {
-        args.user_id = channel.config.user_id;
-    } else if (channel.config.screen_name && '' !== channel.config.screen_name) {
-        args.screen_name = channel.config.screen_name.replace(/^@/, '');
-    }
+        if (channel.config.user_id && '' !== channel.config.user_id) {
+            args.user_id = channel.config.user_id;
+        } else if (channel.config.screen_name && '' !== channel.config.screen_name) {
+            args.screen_name = channel.config.screen_name.replace(/^@/, '');
+        }
 
-    (function(channel, accountInfo, next) {       
         var tc = new ntwitter({
             consumer_key : self.podConfig.oauth.consumerKey,
             consumer_secret : self.podConfig.oauth.consumerSecret,
@@ -137,7 +138,8 @@ UserTimeline.prototype.invoke = function(imports, channel, sysImports, contentPa
         log = $resource.log,
         modelName = this.$resource.getDataSourceName('track_timeline');
 
-    (function(channel, sysImports) {
+    (function(channel, sysImports, next) {
+        console.log('invoking');
         var args = {};
         dao.find(modelName, {}, function(err, result) {
             if (err) {
@@ -158,7 +160,7 @@ UserTimeline.prototype.invoke = function(imports, channel, sysImports, contentPa
                     access_token_key : sysImports.auth.oauth.token,
                     access_token_secret : sysImports.auth.oauth.secret
                 });
-                
+
                 tc.getUserTimeline(args, function(err, tweets) {
                      if (err) {
                         log(err, channel, 'error');
@@ -200,7 +202,7 @@ UserTimeline.prototype.invoke = function(imports, channel, sysImports, contentPa
                 });
             }
         });
-    })(channel, sysImports);
+    })(channel, sysImports, next);
 }
 
 // -----------------------------------------------------------------------------
