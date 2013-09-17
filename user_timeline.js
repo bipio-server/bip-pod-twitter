@@ -139,9 +139,8 @@ UserTimeline.prototype.invoke = function(imports, channel, sysImports, contentPa
         modelName = this.$resource.getDataSourceName('track_timeline');
 
     (function(channel, sysImports, next) {
-        console.log('invoking');
         var args = {};
-        dao.find(modelName, {}, function(err, result) {
+        dao.find(modelName, { channel_id : channel.id, owner_id : channel.owner_id }, function(err, result) {
             if (err) {
                 log(err, channel, 'error');
                 next(err, {});
@@ -166,8 +165,9 @@ UserTimeline.prototype.invoke = function(imports, channel, sysImports, contentPa
                         log(err, channel, 'error');
                         next(err, {});
                      } else {
+                         
                          // set tracking
-                         if (tweets.length > 0) {
+                         if (tweets.length > 0) {                             
                              dao.updateColumn(
                                 modelName,
                                 {
