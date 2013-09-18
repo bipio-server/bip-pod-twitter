@@ -60,6 +60,10 @@ UserTimeline.prototype.getSchema = function() {
                     type  : "string",
                     description : "ID"
                 },
+                'tweet_url' : {
+                    type : 'string',
+                    description : 'Tweet Direct URL'
+                },                    
                 'created_at' : {
                     type  : "string",
                     description : "Created Timestamp"
@@ -177,7 +181,7 @@ UserTimeline.prototype.invoke = function(imports, channel, sysImports, contentPa
                                 { 
                                     last_id_str : tweets[0].id_str
                                 },
-                                function(err) {
+                                function(err) {                                    
                                     if (err) {
                                         log(err, channel, 'error');
                                         next(err, {});
@@ -190,7 +194,8 @@ UserTimeline.prototype.invoke = function(imports, channel, sysImports, contentPa
                                                    id : tweets[i].id_str,
                                                    created_at : tweets[i].created_at,
                                                    text : tweets[i].text,
-                                                   retweeted : tweets[i].retweeted
+                                                   retweeted : tweets[i].retweeted,
+                                                   tweet_url : 'https://twitter.com/' + tweets[i].user.screen_name + '/statuses/' + tweets[i].id_str
                                                }
                                             );
                                         } 
