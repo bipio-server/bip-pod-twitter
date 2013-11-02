@@ -131,6 +131,23 @@ UserTimeline.prototype.setup = function(channel, accountInfo, next) {
     })(channel, accountInfo, next);
 };
 
+
+/**
+ * Drop timeline tracker
+ * 
+ * @todo deprecate - move to pods unless action has teardown override
+ */
+UserTimeline.prototype.teardown = function(channel, accountInfo, next) {   
+  this.$resource.dao.removeFilter(
+    this.$resource.getDataSourceName('track_timeline'), 
+    {
+      owner_id : channel.owner_id,
+      channel_id : channel.id      
+    },
+    next
+  );
+};
+
 /**
  * Invokes (runs) the action.
  *
