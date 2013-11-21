@@ -191,7 +191,7 @@ EachFollower.prototype.getSchema = function() {
         },
         "following": {
           type : "boolean",
-          description: 'Is Following You'
+          description: 'You Are Following'
         },
         "show_all_inline_media": {
           type : "boolean",
