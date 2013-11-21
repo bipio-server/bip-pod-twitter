@@ -21,32 +21,44 @@
  */
 var ntwitter = require('ntwitter');
 
-function StatusUpdate(podConfig) {
-    this.name = 'status_update';
-    this.description = 'New Status Update';
-    this.description_long = 'Any message this Channel receives will trigger a new Twitter Status Update';
+function DirectMessage(podConfig) {
+    this.name = 'direct_message';
+    this.description = 'Send a Direct Message';
+    this.description_long = 'Direct Message another Twitter user who you\'re following and is following you';
     this.trigger = false; // can be a periodic trigger
     this.singleton = true; // only 1 instance per account
     this.podConfig = podConfig;
 }
 
-StatusUpdate.prototype = {};
+DirectMessage.prototype = {};
 
-StatusUpdate.prototype.getSchema = function() {
+DirectMessage.prototype.getSchema = function() {
     return {
         'exports' : {
             properties : {
-                'id' : {
+                'id_str' : {
                     type : "string",
-                    description: 'Tweet ID'
+                    description: 'Message ID'
+                },
+                'sender_id' : {
+                    type : "string",
+                    description: 'Your User ID'
+                },
+                'sender_screen_name' : {
+                    type : "string",
+                    description: 'Your Screen Name'
+                },
+                'text' : {
+                    type : "string",
+                    description: 'The Message You Sent'
                 }
             }
         },
         "imports": {
             properties : {
-                "status" : {
+                "message" : {
                     type : "string",
-                    "description" : "New Timeline Content"
+                    "description" : "Direct Message Content"
                 }
             }
         }
@@ -57,7 +69,7 @@ StatusUpdate.prototype.getSchema = function() {
  * Invokes (runs) the action.
  *
  */
-StatusUpdate.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
+DirectMessage.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
     var log = this.$resource.log;
     var tc = new ntwitter({
         consumer_key : this.podConfig.oauth.consumerKey,
@@ -65,16 +77,17 @@ StatusUpdate.prototype.invoke = function(imports, channel, sysImports, contentPa
         access_token_key : sysImports.auth.oauth.token,
         access_token_secret : sysImports.auth.oauth.secret
     });
-    if (imports.status) {
-        tc.updateStatus(imports.status, function(err, exports) {
-            if (err) {
-                log(err, channel, 'error');
-            }
-            
-            next(err, exports);
-        });
-    } 
+    
+    if (imports.message && '' !== imports.message) {
+      tc.newDirectMessage(imports.id, imports.message, function(err, exports) {
+          if (err) {
+              log(err, channel, 'error');
+          } 
+
+          next(err, exports);
+      });
+    }     
 }
 
 // -----------------------------------------------------------------------------
-module.exports = StatusUpdate;
+module.exports = DirectMessage;

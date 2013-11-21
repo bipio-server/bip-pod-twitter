@@ -36,6 +36,8 @@ var Pod = require('bip-pod'),
 
 Twitter.add(require('./status_update.js'));
 Twitter.add(require('./user_timeline.js'));
+Twitter.add(require('./each_follower.js'));
+Twitter.add(require('./direct_message.js'));
 
 // -----------------------------------------------------------------------------
 module.exports = Twitter;
