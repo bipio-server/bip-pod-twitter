@@ -36,9 +36,9 @@ EachFollower.prototype.getSchema = function() {
   return {
     'config' : {
       properties : {
-        'following_me' : {
+        'me_following' : {
           type : 'boolean',
-          description: 'Only get Users that are following me',
+          description: 'Only get Users that I am also following',
           defualt : true
         }
       }
@@ -47,7 +47,37 @@ EachFollower.prototype.getSchema = function() {
       properties : {
         "name": {
           type : "string",
-          description: 'Follower ID'
+          description: 'User Name'
+        },        
+        "screen_name":{
+          type : "string",
+          description: 'User Screen Name'
+        },
+        "id_str": {
+          type : "string",
+          description: 'User ID (String)'
+        },
+        "profile_image_url":{
+          type : "string",
+          description: 'Profile Image URL'
+        },
+        "url": {
+          type : "string",
+          description: 'Profile URL'
+        },
+        "utc_offset":{
+          type : "string",
+          description: 'UTC Offset'
+        },
+        "description": {
+          type : "string",
+          description: 'Profile Description'
+        }
+        
+        /* kitchen sink hints if you need them.
+        "created_at": {
+          type : "string",
+          description: 'Created At Time'
         },
         "profile_sidebar_fill_color":{
           type : "string",
@@ -61,26 +91,17 @@ EachFollower.prototype.getSchema = function() {
           type : "string",
           description: 'Hex Sidebar Border Color'
         },
-        "profile_image_url":{
-          type : "string",
-          description: 'Profile Image URL'
-        },
+        
         "location": {
           type : "string",
           description: 'Location'
         },
-        "created_at": {
-          type : "string",
-          description: 'Created At Time'
-        },
+        
         "follow_request_sent": {
           type : "integer",
           description: 'Follow Requests Sent'
         },
-        "id_str": {
-          type : "string",
-          description: 'ID (String)'
-        },
+
         "profile_link_color": {
           type : "string",
           description: 'Hex Profile Link Color'
@@ -101,18 +122,12 @@ EachFollower.prototype.getSchema = function() {
           type : "boolean",
           description: 'Contributors Enabled'
         },
-        "url": {
-          type : "string",
-          description: 'Profile URL'
-        },
+
         "profile_image_url_https":{
           type : "string",
           description: 'Profile Image URL (SSL)'
         },
-        "utc_offset":{
-          type : "string",
-          description: 'UTC Offset'
-        },
+
         "id": {
           type : "integer",
           description: 'ID'
@@ -149,10 +164,7 @@ EachFollower.prototype.getSchema = function() {
           type : "boolean",
           description: 'Is Geo Enabled'
         },
-        "description": {
-          type : "string",
-          description: 'Profile Description'
-        },
+
         "profile_background_color": {
           type : "string",
           description: 'Hex Background Color'
@@ -185,10 +197,7 @@ EachFollower.prototype.getSchema = function() {
           type : "integer",
           description: '# Friends'
         },
-        "screen_name":{
-          type : "string",
-          description: 'User Screen Name'
-        },
+
         "following": {
           type : "boolean",
           description: 'You Are Following'
@@ -197,6 +206,7 @@ EachFollower.prototype.getSchema = function() {
           type : "boolean",
           description: 'Showing Media Inline'
         }
+        */
       }
     },
     "imports": {
@@ -233,7 +243,7 @@ EachFollower.prototype.invoke = function(imports, channel, sysImports, contentPa
             } else {
               for (var i = 0; i < exports.length; i++) {
                 // is truthy?
-                if (app.helper.isTrue(channel.config.following_me) && exports[i].following) {
+                if (app.helper.isTrue(channel.config.me_following) && exports[i].following) {
                   next(false, exports[i]);
                 } else {
                   next(false, exports[i]);

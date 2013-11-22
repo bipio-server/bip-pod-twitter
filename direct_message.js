@@ -59,6 +59,10 @@ DirectMessage.prototype.getSchema = function() {
                 "message" : {
                     type : "string",
                     "description" : "Direct Message Content"
+                },
+                "user_id" : {
+                    type : "string",
+                    "description" : "User ID"
                 }
             }
         }
@@ -78,8 +82,8 @@ DirectMessage.prototype.invoke = function(imports, channel, sysImports, contentP
         access_token_secret : sysImports.auth.oauth.secret
     });
     
-    if (imports.message && '' !== imports.message) {
-      tc.newDirectMessage(imports.id, imports.message, function(err, exports) {
+    if (imports.message && '' !== imports.message && imports.user_id && '' !== imports.user_id) {
+      tc.newDirectMessage(imports.user_id, imports.message, function(err, exports) {
           if (err) {
               log(err, channel, 'error');
           } 
