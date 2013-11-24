@@ -1,6 +1,6 @@
 /**
  *
- * The Bipio Twitter Pod.  status_update action definition
+ * The Bipio Twitter Pod. 
  * ---------------------------------------------------------------
  *
  * @author Michael Pearson <michael@cloudspark.com.au>
@@ -39,7 +39,7 @@ EachFollower.prototype.getSchema = function() {
         'me_following' : {
           type : 'boolean',
           description: 'Only get Users that I am also following',
-          defualt : true
+          'default' : true
         }
       }
     },

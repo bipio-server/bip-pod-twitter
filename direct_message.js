@@ -1,6 +1,6 @@
 /**
  *
- * The Bipio Twitter Pod.  status_update action definition
+ * The Bipio Twitter Pod.  
  * ---------------------------------------------------------------
  *
  * @author Michael Pearson <michael@cloudspark.com.au>
