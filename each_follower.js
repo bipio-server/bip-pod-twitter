@@ -222,18 +222,14 @@ EachFollower.prototype.getSchema = function() {
  */
 EachFollower.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
   var log = this.$resource.log;
-  var tc = new ntwitter({
-    consumer_key : this.podConfig.oauth.consumerKey,
-    consumer_secret : this.podConfig.oauth.consumerSecret,
-    access_token_key : sysImports.auth.oauth.token,
-    access_token_secret : sysImports.auth.oauth.secret
-  });
-
+  var tc = this.pod._getClient(sysImports.auth.oauth);
   tc.getFollowersIds(undefined, function(err, exports) {
     if (err) {
       log(err, channel, 'error');
     } else if (exports && exports.length > 0) {
-      var batch = [];
+      var batch = [],
+        isMutual = app.helper.isTrue(channel.config.me_following);
+
       do {
         batch = exports.splice(0, 100);
         if (batch.length > 0) {
@@ -242,8 +238,7 @@ EachFollower.prototype.invoke = function(imports, channel, sysImports, contentPa
               log(err, channel, 'error');
             } else {
               for (var i = 0; i < exports.length; i++) {
-                // is truthy?
-                if (app.helper.isTrue(channel.config.me_following) && exports[i].following) {
+                if (isMutual && exports[i].following) {
                   next(false, exports[i]);
                 } else {
                   next(false, exports[i]);

@@ -36,13 +36,13 @@ DirectMessage.prototype.getSchema = function() {
   return {
     'config' : {
       properties : {
-        "enable_notifications" : {
+        'enable_notifications' : {
           type : 'boolean',
-          description : "Enable notifications for the target user",
+          description: 'Enable notifications for the target user',
           'default' : true
         }
       }
-    },
+    },    
     'exports' : {
       properties : {
         "name": {

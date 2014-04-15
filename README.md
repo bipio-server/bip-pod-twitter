@@ -31,4 +31,4 @@ Bipio may not be used for Commercial purposes by an entity who has not secured a
 please [reach us](mailto:enquiries@cloudspark.com.au)
 
 ![Cloud Spark](http://www.cloudspark.com.au/cdn/static/img/cs_logo.png "Cloud Spark - Rapid Web Stacks Built Beautifully")
-Copyright (c) 2010-2013  [CloudSpark pty ltd](http://www.cloudspark.com.au)
+Copyright (c) 2010-2014  [CloudSpark pty ltd](http://www.cloudspark.com.au)

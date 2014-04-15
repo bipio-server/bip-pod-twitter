@@ -3,7 +3,7 @@
  * The Bipio Twitter Pod.  Twitter Actions and Content Emitters
  * 
  * @author Michael Pearson <michael@cloudspark.com.au>
- * Copyright (c) 2010-2013 CloudSpark pty ltd http://www.cloudspark.com.au
+ * Copyright (c) 2010-2014 CloudSpark pty ltd http://www.cloudspark.com.au
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,7 +33,10 @@ Twitter = new Pod({
       "consumerSecret" : ""
     }
   },
-  dataSources : [ require('./models/track_timeline') ]
+  dataSources : [ 
+    require('./models/track_timeline'),
+    require('./models/track_mentions')
+  ]
 });
 
 Twitter._getClient = function(oauth) {
@@ -46,8 +49,18 @@ Twitter._getClient = function(oauth) {
   });
 }
 
+Twitter._getMentions = function(oauth, params, callback) {
+  this._getClient(oauth).get(
+    '/statuses/mentions_timeline.json',
+    params,
+    callback
+  );
+}
+
+
 Twitter.add(require('./status_update.js'));
 Twitter.add(require('./user_timeline.js'));
+Twitter.add(require('./user_mentions.js'));
 Twitter.add(require('./each_follower.js'));
 Twitter.add(require('./follow_user.js'));
 Twitter.add(require('./direct_message.js'));
