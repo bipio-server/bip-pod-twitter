@@ -17,6 +17,12 @@ pod icon into the server cdn
 
 Manually restart the bipio server at your convenience.
 
+## Twitter App Registration
+
+A Twitter Consumer Key and Secret is needed to use this pod.  Register your application at https://apps.twitter.com/app
+
+**note** When setting 'callback url' on Twitter, **do not** use `localhost` and do not leave the field empty.  Use something like `http://example.org`.  BipIO will figure out the rest. [reference](https://dev.twitter.com/discussions/5749)
+
 ## Documentation
 
 [Bipio Docs](https://bip.io/docs/pods/twitter)
