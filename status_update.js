@@ -23,8 +23,8 @@ var ntwitter = require('ntwitter');
 
 function StatusUpdate(podConfig) {
     this.name = 'status_update';
-    this.description = 'New Status Update';
-    this.description_long = 'Any message this Channel receives will trigger a new Twitter Status Update';
+    this.title = 'New Status Update';
+    this.description = 'Any message this Channel receives will trigger a new Twitter Status Update';
     this.trigger = false; // can be a periodic trigger
     this.singleton = true; // only 1 instance per account
     this.podConfig = podConfig;
@@ -48,7 +48,8 @@ StatusUpdate.prototype.getSchema = function() {
                     type : "string",
                     "description" : "New Timeline Content"
                 }
-            }
+            },
+            "required" : [ "status" ]
         }
     };
 }
@@ -70,10 +71,10 @@ StatusUpdate.prototype.invoke = function(imports, channel, sysImports, contentPa
             if (err) {
                 log(err, channel, 'error');
             }
-            
+
             next(err, exports);
         });
-    } 
+    }
 }
 
 // -----------------------------------------------------------------------------

@@ -23,8 +23,8 @@ var ntwitter = require('ntwitter');
 
 function DirectMessage(podConfig) {
   this.name = 'follow_user';
-  this.description = 'Follow A User';
-  this.description_long = 'Start Following a Twitter User';
+  this.title = 'Follow A User';
+  this.description = 'Start Following a Twitter User';
   this.trigger = false; // can be a periodic trigger
   this.singleton = true; // only 1 instance per account
   this.podConfig = podConfig;
@@ -42,7 +42,7 @@ DirectMessage.prototype.getSchema = function() {
           'default' : true
         }
       }
-    },    
+    },
     'exports' : {
       properties : {
         "name": {
@@ -84,7 +84,7 @@ DirectMessage.prototype.getSchema = function() {
         "user_id" : {
           type : "string",
           "description" : "The ID of the user for whom to befriend."
-        }        
+        }
       }
     }
   };
@@ -99,7 +99,7 @@ DirectMessage.prototype.invoke = function(imports, channel, sysImports, contentP
   var tc = this.pod._getClient(sysImports.auth.oauth);
   var args = {}, id;
   if (channel.config.enable_notifications && app.helper.isTrue(channel.config.enable_notifications) ) {
-    args.enable_notifications = true;    
+    args.enable_notifications = true;
   }
 
   if ('' !== imports.screen_name) {
@@ -110,7 +110,7 @@ DirectMessage.prototype.invoke = function(imports, channel, sysImports, contentP
       id = undefined;
     }
   }
-  
+
   if (id) {
     tc.createFriendship(id, args, function(err, exports) {
       if (err) {

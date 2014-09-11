@@ -1,6 +1,6 @@
 /**
  *
- * The Bipio Twitter Pod.  
+ * The Bipio Twitter Pod.
  * ---------------------------------------------------------------
  *
  * @author Michael Pearson <github@m.bip.io>
@@ -23,8 +23,8 @@ var ntwitter = require('ntwitter');
 
 function DirectMessage(podConfig) {
     this.name = 'direct_message';
-    this.description = 'Send a Direct Message';
-    this.description_long = 'Direct Message another Twitter user who you\'re following and is following you';
+    this.title = 'Send a Direct Message';
+    this.description = 'Direct Message another Twitter user who you\'re following and is following you';
     this.trigger = false; // can be a periodic trigger
     this.singleton = true; // only 1 instance per account
     this.podConfig = podConfig;
@@ -64,7 +64,8 @@ DirectMessage.prototype.getSchema = function() {
                     type : "string",
                     "description" : "User ID"
                 }
-            }
+            },
+            "required" : [ "message", "user_id" ]
         }
     };
 }
@@ -81,16 +82,16 @@ DirectMessage.prototype.invoke = function(imports, channel, sysImports, contentP
         access_token_key : sysImports.auth.oauth.token,
         access_token_secret : sysImports.auth.oauth.secret
     });
-    
+
     if (imports.message && '' !== imports.message && imports.user_id && '' !== imports.user_id) {
       tc.newDirectMessage(imports.user_id, imports.message, function(err, exports) {
           if (err) {
               log(err, channel, 'error');
-          } 
+          }
 
           next(err, exports);
       });
-    }     
+    }
 }
 
 // -----------------------------------------------------------------------------

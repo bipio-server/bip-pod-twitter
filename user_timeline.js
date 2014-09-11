@@ -23,8 +23,8 @@ var ntwitter = require('ntwitter');
 
 function UserTimeline(podConfig) {
     this.name = 'user_timeline';
-    this.description = 'Get Tweets By User';
-    this.description_long = 'Returns a collection of the most recent Tweets posted by a user';
+    this.title = 'Get Tweets By User';
+    this.description = 'Returns a collection of the most recent Tweets posted by a user';
     this.trigger = true; // can be a periodic trigger
     this.singleton = false; // only 1 instance per account
     this.podConfig = podConfig;
@@ -63,7 +63,7 @@ UserTimeline.prototype.getSchema = function() {
                 'tweet_url' : {
                     type : 'string',
                     description : 'Tweet Direct URL'
-                },                    
+                },
                 'created_at' : {
                     type  : "string",
                     description : "Created Timestamp"
@@ -90,7 +90,7 @@ UserTimeline.prototype.setup = function(channel, accountInfo, next) {
         log = $resource.log,
         modelName = this.$resource.getDataSourceName('track_timeline');
 
-    (function(channel, accountInfo, next) {       
+    (function(channel, accountInfo, next) {
         var args = {
             count : 1,
             include_rts : 1
@@ -124,7 +124,7 @@ UserTimeline.prototype.setup = function(channel, accountInfo, next) {
                     if (err) {
                         log(err, channel, 'error');
                     }
-                    next(err, 'channel', channel); // ok                    
+                    next(err, 'channel', channel); // ok
                 }, accountInfo);
             }
         });
@@ -134,15 +134,15 @@ UserTimeline.prototype.setup = function(channel, accountInfo, next) {
 
 /**
  * Drop timeline tracker
- * 
+ *
  * @todo deprecate - move to pods unless action has teardown override
  */
-UserTimeline.prototype.teardown = function(channel, accountInfo, next) {   
+UserTimeline.prototype.teardown = function(channel, accountInfo, next) {
   this.$resource.dao.removeFilter(
-    this.$resource.getDataSourceName('track_timeline'), 
+    this.$resource.getDataSourceName('track_timeline'),
     {
       owner_id : channel.owner_id,
-      channel_id : channel.id      
+      channel_id : channel.id
     },
     next
   );
@@ -186,19 +186,19 @@ UserTimeline.prototype.invoke = function(imports, channel, sysImports, contentPa
                         log(err, channel, 'error');
                         next(err, {});
                      } else {
-                         
+
                          // set tracking
-                         if (tweets.length > 0) {                             
+                         if (tweets.length > 0) {
                              dao.updateColumn(
                                 modelName,
                                 {
                                     owner_id : channel.owner_id,
                                     channel_id : channel.id
                                 },
-                                { 
+                                {
                                     last_id_str : tweets[0].id_str
                                 },
-                                function(err) {                                    
+                                function(err) {
                                     if (err) {
                                         log(err, channel, 'error');
                                         next(err, {});
@@ -215,11 +215,11 @@ UserTimeline.prototype.invoke = function(imports, channel, sysImports, contentPa
                                                    tweet_url : 'https://twitter.com/' + tweets[i].user.screen_name + '/statuses/' + tweets[i].id_str
                                                }
                                             );
-                                        } 
+                                        }
                                     }
                                 }
-                            );                            
-                         }                        
+                            );
+                         }
                      }
                 });
             }

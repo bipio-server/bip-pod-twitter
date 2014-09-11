@@ -1,6 +1,6 @@
 /**
  *
- * The Bipio Twitter Pod. 
+ * The Bipio Twitter Pod.
  * ---------------------------------------------------------------
  *
  * @author Michael Pearson <github@m.bip.io>
@@ -23,8 +23,8 @@ var ntwitter = require('ntwitter');
 
 function EachFollower(podConfig) {
   this.name = 'each_follower';
-  this.description = 'Retrieve My Followers';
-  this.description_long = 'Generates a user ID export for every user following you';
+  this.title = 'Retrieve My Followers';
+  this.description = 'Generates a user ID export for every user following you';
   this.trigger = false; // can be a periodic trigger
   this.singleton = false; // only 1 instance per account
   this.podConfig = podConfig;
@@ -48,7 +48,7 @@ EachFollower.prototype.getSchema = function() {
         "name": {
           type : "string",
           description: 'User Name'
-        },        
+        },
         "screen_name":{
           type : "string",
           description: 'User Screen Name'
@@ -73,7 +73,7 @@ EachFollower.prototype.getSchema = function() {
           type : "string",
           description: 'Profile Description'
         }
-        
+
         /* kitchen sink hints if you need them.
         "created_at": {
           type : "string",
@@ -91,12 +91,12 @@ EachFollower.prototype.getSchema = function() {
           type : "string",
           description: 'Hex Sidebar Border Color'
         },
-        
+
         "location": {
           type : "string",
           description: 'Location'
         },
-        
+
         "follow_request_sent": {
           type : "integer",
           description: 'Follow Requests Sent'

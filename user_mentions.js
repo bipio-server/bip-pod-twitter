@@ -18,8 +18,8 @@
  */
 function UserMentions(podConfig) {
   this.name = 'user_mentions';
-  this.description = 'Get Mentions';
-  this.description_long = 'Forwards the details of any Tweet where your username is mentioned';
+  this.title = 'Get Mentions';
+  this.description = 'Forwards the details of any Tweet where your username is mentioned';
   this.trigger = true;
   this.singleton = false;
   this.podConfig = podConfig;
@@ -79,9 +79,9 @@ UserMentions.prototype.setup = function(channel, accountInfo, next) {
       count : 1,
       include_rts : 1
     };
-   
+
    //Twitter._getMentions = function(oauth, params, callback) {
-   
+
     pod._getMentions(accountInfo._setupAuth.oauth, args, function(err, response) {
       if (err) {
         log(err, channel, 'error');

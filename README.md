@@ -1,7 +1,7 @@
 ![Twitter](twitter.png) bip-pod-twitter
 =======
 
-[Twitter](https://www.twitter.com/) pod for [bipio](https://bip.io).  
+[Twitter](https://www.twitter.com/) pod for [bipio](https://bip.io).
 
 ## Installation
 
@@ -31,8 +31,8 @@ A Twitter Consumer Key and Secret is needed to use this pod.  Register your appl
 
 BipIO is free for non-commercial use - [GPLv3](http://www.gnu.org/copyleft/gpl.html)
 
-Our open source license is the appropriate option if you are creating an open source application under a license compatible with the GNU GPL license v3. 
+Our open source license is the appropriate option if you are creating an open source application under a license compatible with the GNU GPL license v3.
 
-If you'd like to integrate BipIO with your proprietary system, GPLv3 is likely incompatible. To secure a Commercial OEM License for Bipio, please [reach us](mailto:support@beta.bip.io)
+If you'd like to integrate BipIO with your proprietary system, GPLv3 is likely incompatible. To secure a Commercial OEM License for Bipio, please [reach us](mailto:hello@bip.io)
 
 Copyright (c) 2010-2014  [Michael Pearson](https://github.com/mjpearson)
