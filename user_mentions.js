@@ -144,7 +144,7 @@ UserMentions.prototype.invoke = function(imports, channel, sysImports, contentPa
         log(err, channel, 'error');
         next(err, {});
       } else {
-        args.since_id = result.last_id_str;
+        args.since_id = result ? result.last_id_str : '';
 
         pod._getMentions(sysImports.auth.oauth, args, function(err, tweets) {
           if (err) {
