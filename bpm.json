@@ -1,0 +1,384 @@
+{
+  "name": "twitter",
+  "title": "Twitter",
+  "description": "<a href=\"https://twitter.com\">Twitter</a> is an online social networking service and microblogging service that enables its users to send and read text-based messages of up to 140 characters, known as \"tweets\"",
+  "url": "",
+  "trackDuplicates": false,
+  "config": {
+    "oauth": {
+      "consumerKey": "",
+      "consumerSecret": ""
+    }
+  },
+  "auth": {
+    "strategy": "oauth"
+  },
+  "rpcs": {},
+  "actions": {
+    "status_update": {
+      "title": "New Status Update",
+      "description": "Any message this Channel receives will trigger a new Twitter Status Update",
+      "trigger": "invoke",
+      "config": {
+        "properties": {},
+        "definitions": {}
+      },
+      "exports": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Tweet ID"
+          }
+        }
+      },
+      "imports": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "New Timeline Content"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "disposition": [
+          "status"
+        ]
+      }
+    },
+    "user_timeline": {
+      "title": "Get Tweets By User",
+      "description": "Returns a collection of the most recent Tweets posted by a user",
+      "trigger": "poll",
+      "config": {
+        "properties": {
+          "screen_name": {
+            "type": "string",
+            "description": "Screen Name"
+          },
+          "user_id": {
+            "type": "string",
+            "description": "User ID"
+          }
+        },
+        "disposition": [
+          "screen_name",
+          "user_id"
+        ]
+      },
+      "exports": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "Tweet Text"
+          },
+          "retweeted": {
+            "type": "boolean",
+            "description": "Was Retweeted"
+          },
+          "id": {
+            "type": "string",
+            "description": "ID"
+          },
+          "tweet_url": {
+            "type": "string",
+            "description": "Tweet Direct URL"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "Created Timestamp"
+          }
+        }
+      },
+      "imports": {
+        "properties": {}
+      }
+    },
+    "user_mentions": {
+      "title": "Get Mentions",
+      "description": "Forwards the details of any Tweet where your username is mentioned",
+      "trigger": "poll",
+      "config": {
+        "properties": {},
+        "definitions": {}
+      },
+      "exports": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "Tweet Text"
+          },
+          "retweeted": {
+            "type": "boolean",
+            "description": "Was Retweeted"
+          },
+          "id": {
+            "type": "string",
+            "description": "ID"
+          },
+          "tweet_url": {
+            "type": "string",
+            "description": "Tweet Direct URL"
+          },
+          "user_name": {
+            "type": "string",
+            "description": "Mentioning User Name"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "Created Timestamp"
+          }
+        }
+      },
+      "imports": {
+        "properties": {}
+      }
+    },
+    "each_follower": {
+      "title": "Retrieve My Followers",
+      "description": "Generates a user ID export for every user following you",
+      "trigger": "invoke",
+      "config": {
+        "properties": {
+          "me_following": {
+            "type": "boolean",
+            "description": "Only get Users that I am also following",
+            "default": true
+          }
+        },
+        "disposition": [
+          "me_following"
+        ]
+      },
+      "exports": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User Name"
+          },
+          "screen_name": {
+            "type": "string",
+            "description": "User Screen Name"
+          },
+          "id_str": {
+            "type": "string",
+            "description": "User ID (String)"
+          },
+          "profile_image_url": {
+            "type": "string",
+            "description": "Profile Image URL"
+          },
+          "url": {
+            "type": "string",
+            "description": "Profile URL"
+          },
+          "utc_offset": {
+            "type": "string",
+            "description": "UTC Offset"
+          },
+          "description": {
+            "type": "string",
+            "description": "Profile Description"
+          }
+        }
+      },
+      "imports": {
+        "properties": {}
+      }
+    },
+    "follow_user": {
+      "title": "Follow A User",
+      "description": "Start Following a Twitter User",
+      "trigger": "invoke",
+      "config": {
+        "properties": {
+          "enable_notifications": {
+            "type": "boolean",
+            "description": "Enable notifications for the target user",
+            "default": true
+          }
+        },
+        "disposition": [
+          "enable_notifications"
+        ]
+      },
+      "exports": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User Name"
+          },
+          "screen_name": {
+            "type": "string",
+            "description": "User Screen Name"
+          },
+          "id_str": {
+            "type": "string",
+            "description": "User ID (String)"
+          },
+          "profile_image_url": {
+            "type": "string",
+            "description": "Profile Image URL"
+          },
+          "url": {
+            "type": "string",
+            "description": "Profile URL"
+          },
+          "utc_offset": {
+            "type": "string",
+            "description": "UTC Offset"
+          },
+          "description": {
+            "type": "string",
+            "description": "Profile Description"
+          }
+        }
+      },
+      "imports": {
+        "properties": {
+          "screen_name": {
+            "type": "string",
+            "description": "The screen name of the user for whom to befriend."
+          },
+          "user_id": {
+            "type": "string",
+            "description": "The ID of the user for whom to befriend."
+          }
+        },
+        "disposition": [
+          "screen_name",
+          "user_id"
+        ]
+      }
+    },
+    "direct_message": {
+      "title": "Send a Direct Message",
+      "description": "Direct Message another Twitter user who you're following and is following you",
+      "trigger": "invoke",
+      "config": {
+        "properties": {},
+        "definitions": {}
+      },
+      "exports": {
+        "properties": {
+          "id_str": {
+            "type": "string",
+            "description": "Message ID"
+          },
+          "sender_id": {
+            "type": "string",
+            "description": "Your User ID"
+          },
+          "sender_screen_name": {
+            "type": "string",
+            "description": "Your Screen Name"
+          },
+          "text": {
+            "type": "string",
+            "description": "The Message You Sent"
+          }
+        }
+      },
+      "imports": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Direct Message Content"
+          },
+          "user_id": {
+            "type": "string",
+            "description": "User ID"
+          }
+        },
+        "required": [
+          "message",
+          "user_id"
+        ],
+        "disposition": [
+          "message",
+          "user_id"
+        ]
+      }
+    }
+  },
+  "dataSources": {
+    "track_timeline": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "renderable": false,
+          "writable": false,
+          "unique": true
+        },
+        "owner_id": {
+          "type": "string",
+          "renderable": false,
+          "writable": false
+        },
+        "created": {
+          "type": "string",
+          "renderable": false,
+          "writable": false
+        },
+        "last_update": {
+          "type": "string",
+          "renderable": false,
+          "writable": false
+        },
+        "channel_id": {
+          "type": "string",
+          "renderable": false,
+          "writable": false
+        },
+        "last_id_str": {
+          "type": "string",
+          "renderable": false,
+          "writable": false
+        }
+      },
+      "keys": [
+        "channel_id",
+        "owner_id"
+      ]
+    },
+    "track_mentions": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "renderable": false,
+          "writable": false,
+          "unique": true
+        },
+        "owner_id": {
+          "type": "string",
+          "renderable": false,
+          "writable": false
+        },
+        "created": {
+          "type": "string",
+          "renderable": false,
+          "writable": false
+        },
+        "last_update": {
+          "type": "string",
+          "renderable": false,
+          "writable": false
+        },
+        "channel_id": {
+          "type": "string",
+          "renderable": false,
+          "writable": false
+        },
+        "last_id_str": {
+          "type": "string",
+          "renderable": false,
+          "writable": false
+        }
+      },
+      "keys": [
+        "channel_id",
+        "owner_id"
+      ]
+    }
+  }
+}
