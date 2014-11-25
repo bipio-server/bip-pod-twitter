@@ -19,76 +19,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-var ntwitter = require('ntwitter');
-
 function DirectMessage(podConfig) {
-  this.name = 'follow_user';
-  this.title = 'Follow A User';
-  this.description = 'Start Following a Twitter User';
-  this.trigger = false; // can be a periodic trigger
-  this.singleton = true; // only 1 instance per account
   this.podConfig = podConfig;
 }
 
 DirectMessage.prototype = {};
-
-DirectMessage.prototype.getSchema = function() {
-  return {
-    'config' : {
-      properties : {
-        'enable_notifications' : {
-          type : 'boolean',
-          description: 'Enable notifications for the target user',
-          'default' : true
-        }
-      }
-    },
-    'exports' : {
-      properties : {
-        "name": {
-          type : "string",
-          description: 'User Name'
-        },
-        "screen_name":{
-          type : "string",
-          description: 'User Screen Name'
-        },
-        "id_str": {
-          type : "string",
-          description: 'User ID (String)'
-        },
-        "profile_image_url":{
-          type : "string",
-          description: 'Profile Image URL'
-        },
-        "url": {
-          type : "string",
-          description: 'Profile URL'
-        },
-        "utc_offset":{
-          type : "string",
-          description: 'UTC Offset'
-        },
-        "description": {
-          type : "string",
-          description: 'Profile Description'
-        }
-      }
-    },
-    "imports": {
-      properties : {
-        "screen_name" : {
-          type : "string",
-          "description" : "The screen name of the user for whom to befriend."
-        },
-        "user_id" : {
-          type : "string",
-          "description" : "The ID of the user for whom to befriend."
-        }
-      }
-    }
-  };
-}
 
 /**
  * Invokes (runs) the action.

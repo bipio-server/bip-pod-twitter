@@ -17,48 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 function UserMentions(podConfig) {
-  this.name = 'user_mentions';
-  this.title = 'Get Mentions';
-  this.description = 'Forwards the details of any Tweet where your username is mentioned';
-  this.trigger = true;
-  this.singleton = false;
   this.podConfig = podConfig;
 }
 
 UserMentions.prototype = {};
-
-UserMentions.prototype.getSchema = function() {
-  return {
-    'exports' : {
-      properties : {
-        'text' : {
-          type : "string",
-          description: 'Tweet Text'
-        },
-        'retweeted' : {
-          type  : "boolean",
-          description : "Was Retweeted"
-        },
-        'id' : {
-          type  : "string",
-          description : "ID"
-        },
-        'tweet_url' : {
-          type : 'string',
-          description : 'Tweet Direct URL'
-        },
-        'user_name' : {
-          type : 'string',
-          description : 'Mentioning User Name'
-        },
-        'created_at' : {
-          type  : "string",
-          description : "Created Timestamp"
-        }
-      }
-    }
-  };
-};
 
 /**
  * Initializes local timeline tracking.  Only tracks from channel setup.

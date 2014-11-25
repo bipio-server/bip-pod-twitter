@@ -19,56 +19,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-var ntwitter = require('ntwitter');
-
 function DirectMessage(podConfig) {
-    this.name = 'direct_message';
-    this.title = 'Send a Direct Message';
-    this.description = 'Direct Message another Twitter user who you\'re following and is following you';
-    this.trigger = false; // can be a periodic trigger
-    this.singleton = true; // only 1 instance per account
     this.podConfig = podConfig;
 }
 
 DirectMessage.prototype = {};
-
-DirectMessage.prototype.getSchema = function() {
-    return {
-        'exports' : {
-            properties : {
-                'id_str' : {
-                    type : "string",
-                    description: 'Message ID'
-                },
-                'sender_id' : {
-                    type : "string",
-                    description: 'Your User ID'
-                },
-                'sender_screen_name' : {
-                    type : "string",
-                    description: 'Your Screen Name'
-                },
-                'text' : {
-                    type : "string",
-                    description: 'The Message You Sent'
-                }
-            }
-        },
-        "imports": {
-            properties : {
-                "message" : {
-                    type : "string",
-                    "description" : "Direct Message Content"
-                },
-                "user_id" : {
-                    type : "string",
-                    "description" : "User ID"
-                }
-            },
-            "required" : [ "message", "user_id" ]
-        }
-    };
-}
 
 /**
  * Invokes (runs) the action.
@@ -76,12 +31,7 @@ DirectMessage.prototype.getSchema = function() {
  */
 DirectMessage.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
     var log = this.$resource.log;
-    var tc = new ntwitter({
-        consumer_key : this.podConfig.oauth.consumerKey,
-        consumer_secret : this.podConfig.oauth.consumerSecret,
-        access_token_key : sysImports.auth.oauth.token,
-        access_token_secret : sysImports.auth.oauth.secret
-    });
+    var tc = this.pod._getClient(sysImports.auth.oauth);
 
     if (imports.message && '' !== imports.message && imports.user_id && '' !== imports.user_id) {
       tc.newDirectMessage(imports.user_id, imports.message, function(err, exports) {

@@ -19,40 +19,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-var ntwitter = require('ntwitter');
-
 function StatusUpdate(podConfig) {
-    this.name = 'status_update';
-    this.title = 'New Status Update';
-    this.description = 'Any message this Channel receives will trigger a new Twitter Status Update';
-    this.trigger = false; // can be a periodic trigger
-    this.singleton = true; // only 1 instance per account
     this.podConfig = podConfig;
 }
 
 StatusUpdate.prototype = {};
-
-StatusUpdate.prototype.getSchema = function() {
-    return {
-        'exports' : {
-            properties : {
-                'id' : {
-                    type : "string",
-                    description: 'Tweet ID'
-                }
-            }
-        },
-        "imports": {
-            properties : {
-                "status" : {
-                    type : "string",
-                    "description" : "New Timeline Content"
-                }
-            },
-            "required" : [ "status" ]
-        }
-    };
-}
 
 /**
  * Invokes (runs) the action.
@@ -60,21 +31,11 @@ StatusUpdate.prototype.getSchema = function() {
  */
 StatusUpdate.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
     var log = this.$resource.log;
-    var tc = new ntwitter({
-        consumer_key : this.podConfig.oauth.consumerKey,
-        consumer_secret : this.podConfig.oauth.consumerSecret,
-        access_token_key : sysImports.auth.oauth.token,
-        access_token_secret : sysImports.auth.oauth.secret
-    });
-    if (imports.status) {
-        tc.updateStatus(imports.status, function(err, exports) {
-            if (err) {
-                log(err, channel, 'error');
-            }
+    var tc = this.pod._getClient(sysImports.auth.oauth);
 
-            next(err, exports);
-        });
-    }
+    tc.updateStatus(imports.status, function(err, exports) {
+        next(err, exports);
+    });
 }
 
 // -----------------------------------------------------------------------------
