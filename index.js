@@ -24,11 +24,10 @@ var Pod = require('bip-pod'),
 Twitter = new Pod();
 
 Twitter._getClient = function(oauth) {
-  var podConfig = this.getConfig();
   return new ntwitter({
-    consumer_key : oauth.consmerKey || podConfig.oauth.consumerKey,
-    consumer_secret : oauth.consumerSecret || podConfig.oauth.consumerSecret,
-    access_token_key : oauth.token,
+    consumer_key : oauth.consumerKey,
+    consumer_secret : oauth.consumerSecret,
+    access_token_key : oauth.access_token,
     access_token_secret : oauth.secret
   });
 }
