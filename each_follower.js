@@ -30,14 +30,16 @@ EachFollower.prototype = {};
  *
  */
 EachFollower.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
-  var log = this.$resource.log;
-  var tc = this.pod._getClient(sysImports.auth.oauth);
+  var $resource = this.$resource,
+    log = $resource.log,
+    tc = this.pod._getClient(sysImports.auth.oauth);
+
   tc.getFollowersIds(undefined, function(err, exports) {
     if (err) {
       log(err, channel, 'error');
     } else if (exports && exports.length > 0) {
       var batch = [],
-        isMutual = app.helper.isTrue(channel.config.me_following);
+        isMutual = $resource.helper.isTruthy(channel.config.me_following);
 
       do {
         batch = exports.splice(0, 100);

@@ -59,7 +59,7 @@ UserTimeline.prototype.setup = function(channel, accountInfo, next) {
             var trackingStruct = {
                 owner_id : channel.owner_id,
                 channel_id : channel.id,
-                last_update : app.helper.nowUTCSeconds(),
+                last_update : $resource.helper.nowUTCSeconds(),
                 last_id_str : response[0].id_str
             }
             model = dao.modelFactory(modelName, trackingStruct, accountInfo);

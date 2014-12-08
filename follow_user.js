@@ -32,8 +32,9 @@ DirectMessage.prototype = {};
 DirectMessage.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
   var log = this.$resource.log;
   var tc = this.pod._getClient(sysImports.auth.oauth);
+
   var args = {}, id;
-  if (channel.config.enable_notifications && app.helper.isTrue(channel.config.enable_notifications) ) {
+  if (channel.config.enable_notifications && this.$resource.helper.isTruthy(channel.config.enable_notifications) ) {
     args.enable_notifications = true;
   }
 
