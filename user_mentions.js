@@ -1,7 +1,10 @@
 /**
  *
+ * The Bipio Twitter Pod.  user_timeline action definition
+ * ---------------------------------------------------------------
+ *
  * @author Michael Pearson <github@m.bip.io>
- * Copyright (c) 2010-2014 Michael Pearson https://github.com/mjpearson
+ * Copyright (c) 2010-2013 Michael Pearson https://github.com/mjpearson
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,10 +20,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 function UserMentions(podConfig) {
-  this.podConfig = podConfig;
+    this.podConfig = podConfig;
 }
 
 UserMentions.prototype = {};
+
 
 /**
  * Initializes local timeline tracking.  Only tracks from channel setup.
@@ -29,25 +33,26 @@ UserMentions.prototype = {};
  * should override the trigger invoke() tracking start for this channel instance.
  */
 UserMentions.prototype.setup = function(channel, accountInfo, next) {
-  var $resource = this.$resource,
-  pod = this.pod,
-  self = this,
-  dao = $resource.dao,
-  log = $resource.log,
-  modelName = this.$resource.getDataSourceName('track_mentions');
+     var $resource = this.$resource,
+        self = this,
+        dao = $resource.dao,
+        pod = this.pod,
+        modelName = this.$resource.getDataSourceName('track_mentions');
 
-  (function(channel, accountInfo, next) {
     var args = {
-      count : 1,
-      include_rts : 1
+        count : 1,
+        include_rts : 1
     };
 
-   //Twitter._getMentions = function(oauth, params, callback) {
+    if (channel.config.user_id && '' !== channel.config.user_id) {
+        args.user_id = channel.config.user_id;
+    } else if (channel.config.screen_name && '' !== channel.config.screen_name) {
+        args.screen_name = channel.config.screen_name.replace(/^@/, '');
+    }
 
     pod._getMentions(accountInfo._setupAuth.oauth, args, function(err, response) {
       if (err) {
-        log(err, channel, 'error');
-        next(err, 'channel', channel);
+          next(JSON.parse(err.data).errors[0].message);
       } else {
         var trackingStruct = {
           owner_id : channel.owner_id,
@@ -57,14 +62,10 @@ UserMentions.prototype.setup = function(channel, accountInfo, next) {
         }
         model = dao.modelFactory(modelName, trackingStruct, accountInfo);
         dao.create(model, function(err, result) {
-          if (err) {
-            log(err, channel, 'error');
-          }
-          next(err, 'channel', channel); // ok
+            next(err); // ok
         }, accountInfo);
       }
     });
-  })(channel, accountInfo, next);
 };
 
 
@@ -81,8 +82,51 @@ UserMentions.prototype.teardown = function(channel, accountInfo, next) {
       channel_id : channel.id
     },
     next
-    );
+  );
 };
+
+UserMentions.prototype.trigger = function(imports, channel, sysImports, contentParts, next) {
+    var $resource = this.$resource,
+        self = this,
+        dao = $resource.dao,
+        modelName = this.$resource.getDataSourceName('track_mentions');
+
+    dao.find(modelName, { channel_id : channel.id, owner_id : channel.owner_id }, function(err, result) {
+        if (err) {
+            next(err, {});
+        } else {
+            imports.since_id = result.last_id_str;
+            var lastId;
+
+            self.invoke(imports, channel, sysImports, contentParts, function(err, exports) {
+                if (err) {
+                    next(err);
+                } else {
+                    next(false, exports);
+
+                    if (!lastId) {
+                        lastId = exports.id;
+                        dao.updateColumn(
+                            modelName,
+                            {
+                                owner_id : channel.owner_id,
+                                channel_id : channel.id
+                            },
+                            {
+                                last_id_str : lastId
+                            },
+                            function(err) {
+                                if (err) {
+                                    next(err);
+                                }
+                            }
+                        );
+                    }
+                }
+            });
+        }
+    });
+}
 
 /**
  * Invokes (runs) the action.
@@ -90,67 +134,28 @@ UserMentions.prototype.teardown = function(channel, accountInfo, next) {
  */
 UserMentions.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
   var $resource = this.$resource,
-  self = this,
-  pod = this.pod,
-  dao = $resource.dao,
-  log = $resource.log,
-  modelName = this.$resource.getDataSourceName('track_mentions');
+    self = this,
+    pod = this.pod,
+    dao = $resource.dao;
 
-  (function(channel, sysImports, next) {
-    var args = {};
-    dao.find(modelName, {
-      channel_id : channel.id,
-      owner_id : channel.owner_id
-    }, function(err, result) {
-      if (err) {
-        log(err, channel, 'error');
-        next(err, {});
-      } else {
-        args.since_id = result ? result.last_id_str : '';
-
-        pod._getMentions(sysImports.auth.oauth, args, function(err, tweets) {
-          if (err) {
-            log(err, channel, 'error');
-            next(err, {});
-          } else {
-            // set tracking
-            if (tweets.length > 0) {
-              dao.updateColumn(
-                modelName,
-                {
-                  owner_id : channel.owner_id,
-                  channel_id : channel.id
-                },
-                {
-                  last_id_str : tweets[0].id_str
-                },
-                function(err) {
-                  if (err) {
-                    log(err, channel, 'error');
-                    next(err, {});
-                  } else {
-                    for (var i = 0; i < tweets.length; i++) {
-                      next(
-                        false,
-                        {
-                          id : tweets[i].id_str,
-                          created_at : tweets[i].created_at,
-                          text : tweets[i].text,
-                          retweeted : tweets[i].retweeted,
-                          tweet_url : 'https://twitter.com/' + tweets[i].user.screen_name + '/statuses/' + tweets[i].id_str,
-                          user_name : tweets[i].user.name
-                        }
-                        );
-                    }
-                  }
-                }
-                );
-            }
-          }
-        });
+  pod._getMentions(sysImports.auth.oauth, imports, function(err, tweets) {
+    if (err) {
+      next(JSON.parse(err.data).errors[0].message);
+    } else {
+      for (var i = 0; i < tweets.length; i++) {
+        next(
+           false,
+           {
+             id : tweets[i].id_str,
+             created_at : tweets[i].created_at,
+             text : tweets[i].text,
+             retweeted : tweets[i].retweeted,
+             tweet_url : 'https://twitter.com/' + tweets[i].user.screen_name + '/statuses/' + tweets[i].id_str
+           }
+        );
       }
-    });
-  })(channel, sysImports, next);
+    }
+  });
 }
 
 // -----------------------------------------------------------------------------
