@@ -30,18 +30,8 @@ DirectMessage.prototype = {};
  *
  */
 DirectMessage.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
-    var log = this.$resource.log;
-    var tc = this.pod._getClient(sysImports.auth.oauth);
-
-    if (imports.message && '' !== imports.message && imports.user_id && '' !== imports.user_id) {
-      tc.newDirectMessage(imports.user_id, imports.message, function(err, exports) {
-          if (err) {
-              log(err, channel, 'error');
-          }
-
-          next(err, exports);
-      });
-    }
+  var tc = this.pod._getClient(sysImports.auth.oauth);
+  tc.newDirectMessage(imports.user_id, imports.message, next);
 }
 
 // -----------------------------------------------------------------------------
