@@ -116,12 +116,14 @@
       },
       "imports": {
         "properties": {
-          "since_id" : {
-            "type" : "string",
-            "description" : "Since Tweet ID"
+          "since_id": {
+            "type": "string",
+            "description": "Since Tweet ID"
           }
         },
-        "disposition" : [ "since_id" ]
+        "disposition": [
+          "since_id"
+        ]
       }
     },
     "user_mentions": {
@@ -162,12 +164,14 @@
       },
       "imports": {
         "properties": {
-          "since_id" : {
-            "type" : "string",
-            "description" : "Since Tweet ID"
+          "since_id": {
+            "type": "string",
+            "description": "Since Tweet ID"
           }
         },
-        "disposition" : [ "since_id" ]
+        "disposition": [
+          "since_id"
+        ]
       }
     },
     "each_follower": {
@@ -416,5 +420,8 @@
         "owner_id"
       ]
     }
-  }
+  },
+  "tags": [
+    "social"
+  ]
 }
