@@ -95,7 +95,11 @@ UserMentions.prototype.trigger = function(imports, channel, sysImports, contentP
         if (err) {
             next(err, {});
         } else {
-            imports.since_id = result.last_id_str;
+            // recover if
+            if (result && result.last_id_str) {
+              imports.since_id = result.last_id_str;
+            }
+
             var lastId;
 
             self.invoke(imports, channel, sysImports, contentParts, function(err, exports) {

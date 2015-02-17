@@ -3,7 +3,7 @@
   "title": "Twitter",
   "description": "<a href=\"https://twitter.com\">Twitter</a> is an online social networking service and microblogging service that enables its users to send and read text-based messages of up to 140 characters, known as \"tweets\"",
   "url": "",
-  "trackDuplicates": false,
+  "trackDuplicates": true,
   "config": {
     "oauth": {
       "consumerKey": "",
@@ -39,6 +39,63 @@
   },
   "rpcs": {},
   "actions": {
+    "search": {
+      "title": "On A Search Match",
+      "doc_ref" : "https://dev.twitter.com/rest/public/search",
+      "description": "Triggers When A Search Term Matches",
+      "trigger": "poll",
+      "config": {
+        "properties": {
+          "q": {
+            "type": "string",
+            "description": "Search For"
+          }
+        },
+        "definitions": {}
+      },
+      "exports": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "Tweet Text"
+          },
+          "retweeted": {
+            "type": "boolean",
+            "description": "Was Retweeted"
+          },
+          "id": {
+            "type": "string",
+            "description": "ID"
+          },
+          "tweet_url": {
+            "type": "string",
+            "description": "Tweet Direct URL"
+          },
+          "user_name": {
+            "type": "string",
+            "description": "User Name"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "Created Timestamp"
+          }
+        }
+      },
+      "imports": {
+        "properties": {
+          "q": {
+            "type": "string",
+            "description": "Search For"
+          }
+        },
+        "required": [
+          "q"
+        ],
+        "disposition": [
+          "q"
+        ]
+      }
+    },
     "status_update": {
       "title": "New Status Update",
       "description": "Any message this Channel receives will trigger a new Twitter Status Update",
@@ -71,8 +128,8 @@
       }
     },
     "user_timeline": {
-      "title": "Get Tweets By User",
-      "description": "Returns a collection of the most recent Tweets posted by a user",
+      "title": "When A User Tweets",
+      "description": "Gets New Tweets By A User",
       "trigger": "poll",
       "config": {
         "properties": {
@@ -127,8 +184,8 @@
       }
     },
     "user_mentions": {
-      "title": "Get Mentions",
-      "description": "Forwards the details of any Tweet where your username is mentioned",
+      "title": "When You're Mentioned",
+      "description": "Gets New Tweets You're Mentioned In",
       "trigger": "poll",
       "config": {
         "properties": {},
@@ -292,7 +349,7 @@
       }
     },
     "direct_message": {
-      "title": "Send a Direct Message",
+      "title": "Send Direct Message",
       "description": "Direct Message another Twitter user who you're following and is following you",
       "trigger": "invoke",
       "config": {

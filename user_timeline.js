@@ -52,7 +52,8 @@ UserTimeline.prototype.setup = function(channel, accountInfo, next) {
     var tc = this.pod._getClient(accountInfo._setupAuth.oauth);
     tc.getUserTimeline(args, function(err, response) {
         if (err) {
-            next(JSON.parse(err.data).errors[0].message);
+            var errData = JSON.parse(err.data);
+            next(errData.errors ? errData.errors[0].message : errData.error);
         } else {
             var trackingStruct = {
                 owner_id : channel.owner_id,
