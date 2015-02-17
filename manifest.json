@@ -40,9 +40,9 @@
   "rpcs": {},
   "actions": {
     "search": {
-      "title": "On A Search Match",
+      "title": "On A New Tweet Search",
       "doc_ref" : "https://dev.twitter.com/rest/public/search",
-      "description": "Triggers When A Search Term Matches",
+      "description": "Triggers When A New Tweet Matches Your Search Terms",
       "trigger": "poll",
       "config": {
         "properties": {
@@ -97,8 +97,8 @@
       }
     },
     "status_update": {
-      "title": "New Status Update",
-      "description": "Any message this Channel receives will trigger a new Twitter Status Update",
+      "title": "Tweet",
+      "description": "Create A New Tweet",
       "trigger": "invoke",
       "config": {
         "properties": {},
@@ -116,7 +116,7 @@
         "properties": {
           "status": {
             "type": "string",
-            "description": "New Timeline Content"
+            "description": "New Status"
           }
         },
         "required": [
@@ -233,7 +233,7 @@
     },
     "each_follower": {
       "title": "Retrieve My Followers",
-      "description": "Generates a user ID export for every user following you",
+      "description": "Retrieves The ID Of Every User Following You",
       "trigger": "invoke",
       "config": {
         "properties": {
@@ -259,7 +259,7 @@
           },
           "id_str": {
             "type": "string",
-            "description": "User ID (String)"
+            "description": "User ID"
           },
           "profile_image_url": {
             "type": "string",
@@ -335,11 +335,11 @@
         "properties": {
           "screen_name": {
             "type": "string",
-            "description": "The screen name of the user for whom to befriend."
+            "description": "The Screen Name Of The User To Friend"
           },
           "user_id": {
             "type": "string",
-            "description": "The ID of the user for whom to befriend."
+            "description": "The ID Of The User To Friend"
           }
         },
         "disposition": [
@@ -350,7 +350,7 @@
     },
     "direct_message": {
       "title": "Send Direct Message",
-      "description": "Direct Message another Twitter user who you're following and is following you",
+      "description": "Direct Message Another Twitter User",
       "trigger": "invoke",
       "config": {
         "properties": {},
