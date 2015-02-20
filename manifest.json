@@ -39,6 +39,59 @@
   },
   "rpcs": {},
   "actions": {
+    "retweet": {
+      "title": "Retweet",
+      "doc_ref" : "https://dev.twitter.com/rest/reference/post/statuses/retweet/%3Aid",
+      "description": "Retweets A Tweet",
+      "trigger": "invoke",
+      "config": {
+        "properties": {
+        },
+        "definitions": {}
+      },
+      "exports": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "Tweet Text"
+          },
+          "retweeted": {
+            "type": "boolean",
+            "description": "Was Retweeted"
+          },
+          "id": {
+            "type": "string",
+            "description": "ID"
+          },
+          "tweet_url": {
+            "type": "string",
+            "description": "Tweet Direct URL"
+          },
+          "user_name": {
+            "type": "string",
+            "description": "User Name"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "Created Timestamp"
+          }
+        }
+      },
+      "imports": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Tweet ID"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "disposition": [
+          "id"
+        ]
+      }
+    },
     "search": {
       "title": "On A New Tweet Search",
       "doc_ref" : "https://dev.twitter.com/rest/public/search",
