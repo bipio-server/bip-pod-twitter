@@ -41,39 +41,38 @@
   "actions": {
     "retweet": {
       "title": "Retweet",
-      "doc_ref" : "https://dev.twitter.com/rest/reference/post/statuses/retweet/%3Aid",
+      "doc_ref": "https://dev.twitter.com/rest/reference/post/statuses/retweet/%3Aid",
       "description": "Retweets A Tweet",
       "trigger": "invoke",
       "config": {
-        "properties": {
-        },
+        "properties": {},
         "definitions": {}
       },
       "exports": {
         "properties": {
           "text": {
             "type": "string",
-            "description": "Tweet Text"
+            "title": "Tweet Text"
           },
           "retweeted": {
             "type": "boolean",
-            "description": "Was Retweeted"
+            "title": "Was Retweeted"
           },
           "id": {
             "type": "string",
-            "description": "ID"
+            "title": "ID"
           },
           "tweet_url": {
             "type": "string",
-            "description": "Tweet Direct URL"
+            "title": "Tweet Direct URL"
           },
           "user_name": {
             "type": "string",
-            "description": "User Name"
+            "title": "User Name"
           },
           "created_at": {
             "type": "string",
-            "description": "Created Timestamp"
+            "title": "Created Timestamp"
           }
         }
       },
@@ -81,7 +80,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "Tweet ID"
+            "title": "Tweet ID"
           }
         },
         "required": [
@@ -94,14 +93,14 @@
     },
     "search": {
       "title": "On A New Tweet Search",
-      "doc_ref" : "https://dev.twitter.com/rest/public/search",
+      "doc_ref": "https://dev.twitter.com/rest/public/search",
       "description": "Triggers When A New Tweet Matches Your Search Terms",
       "trigger": "poll",
       "config": {
         "properties": {
           "q": {
             "type": "string",
-            "description": "Search For"
+            "title": "Search For"
           }
         },
         "definitions": {}
@@ -110,27 +109,27 @@
         "properties": {
           "text": {
             "type": "string",
-            "description": "Tweet Text"
+            "title": "Tweet Text"
           },
           "retweeted": {
             "type": "boolean",
-            "description": "Was Retweeted"
+            "title": "Was Retweeted"
           },
           "id": {
             "type": "string",
-            "description": "ID"
+            "title": "ID"
           },
           "tweet_url": {
             "type": "string",
-            "description": "Tweet Direct URL"
+            "title": "Tweet Direct URL"
           },
           "user_name": {
             "type": "string",
-            "description": "User Name"
+            "title": "User Name"
           },
           "created_at": {
             "type": "string",
-            "description": "Created Timestamp"
+            "title": "Created Timestamp"
           }
         }
       },
@@ -138,7 +137,7 @@
         "properties": {
           "q": {
             "type": "string",
-            "description": "Search For"
+            "title": "Search For"
           }
         },
         "required": [
@@ -161,7 +160,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "Tweet ID"
+            "title": "Tweet ID"
           }
         }
       },
@@ -169,7 +168,7 @@
         "properties": {
           "status": {
             "type": "string",
-            "description": "New Status"
+            "title": "New Status"
           }
         },
         "required": [
@@ -188,11 +187,11 @@
         "properties": {
           "screen_name": {
             "type": "string",
-            "description": "Screen Name"
+            "title": "Screen Name"
           },
           "user_id": {
             "type": "string",
-            "description": "User ID"
+            "title": "User ID"
           }
         },
         "disposition": [
@@ -204,23 +203,23 @@
         "properties": {
           "text": {
             "type": "string",
-            "description": "Tweet Text"
+            "title": "Tweet Text"
           },
           "retweeted": {
             "type": "boolean",
-            "description": "Was Retweeted"
+            "title": "Was Retweeted"
           },
           "id": {
             "type": "string",
-            "description": "ID"
+            "title": "ID"
           },
           "tweet_url": {
             "type": "string",
-            "description": "Tweet Direct URL"
+            "title": "Tweet Direct URL"
           },
           "created_at": {
             "type": "string",
-            "description": "Created Timestamp"
+            "title": "Created Timestamp"
           }
         }
       },
@@ -228,7 +227,7 @@
         "properties": {
           "since_id": {
             "type": "string",
-            "description": "Since Tweet ID"
+            "title": "Since Tweet ID"
           }
         },
         "disposition": [
@@ -248,27 +247,27 @@
         "properties": {
           "text": {
             "type": "string",
-            "description": "Tweet Text"
+            "title": "Tweet Text"
           },
           "retweeted": {
             "type": "boolean",
-            "description": "Was Retweeted"
+            "title": "Was Retweeted"
           },
           "id": {
             "type": "string",
-            "description": "ID"
+            "title": "ID"
           },
           "tweet_url": {
             "type": "string",
-            "description": "Tweet Direct URL"
+            "title": "Tweet Direct URL"
           },
           "user_name": {
             "type": "string",
-            "description": "Mentioning User Name"
+            "title": "Mentioning User Name"
           },
           "created_at": {
             "type": "string",
-            "description": "Created Timestamp"
+            "title": "Created Timestamp"
           }
         }
       },
@@ -276,7 +275,7 @@
         "properties": {
           "since_id": {
             "type": "string",
-            "description": "Since Tweet ID"
+            "title": "Since Tweet ID"
           }
         },
         "disposition": [
@@ -292,8 +291,8 @@
         "properties": {
           "me_following": {
             "type": "boolean",
-            "description": "Only get Users that I am also following",
-            "default": true
+            "default": true,
+            "title": "Only get Users that I am also following"
           }
         },
         "disposition": [
@@ -304,31 +303,31 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "User Name"
+            "title": "User Name"
           },
           "screen_name": {
             "type": "string",
-            "description": "User Screen Name"
+            "title": "User Screen Name"
           },
           "id_str": {
             "type": "string",
-            "description": "User ID"
+            "title": "User ID"
           },
           "profile_image_url": {
             "type": "string",
-            "description": "Profile Image URL"
+            "title": "Profile Image URL"
           },
           "url": {
             "type": "string",
-            "description": "Profile URL"
+            "title": "Profile URL"
           },
           "utc_offset": {
             "type": "string",
-            "description": "UTC Offset"
+            "title": "UTC Offset"
           },
           "description": {
             "type": "string",
-            "description": "Profile Description"
+            "title": "Profile Description"
           }
         }
       },
@@ -344,8 +343,8 @@
         "properties": {
           "enable_notifications": {
             "type": "boolean",
-            "description": "Enable notifications for the target user",
-            "default": true
+            "default": true,
+            "title": "Enable notifications for the target user"
           }
         },
         "disposition": [
@@ -356,31 +355,31 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "User Name"
+            "title": "User Name"
           },
           "screen_name": {
             "type": "string",
-            "description": "User Screen Name"
+            "title": "User Screen Name"
           },
           "id_str": {
             "type": "string",
-            "description": "User ID (String)"
+            "title": "User ID (String)"
           },
           "profile_image_url": {
             "type": "string",
-            "description": "Profile Image URL"
+            "title": "Profile Image URL"
           },
           "url": {
             "type": "string",
-            "description": "Profile URL"
+            "title": "Profile URL"
           },
           "utc_offset": {
             "type": "string",
-            "description": "UTC Offset"
+            "title": "UTC Offset"
           },
           "description": {
             "type": "string",
-            "description": "Profile Description"
+            "title": "Profile Description"
           }
         }
       },
@@ -388,11 +387,11 @@
         "properties": {
           "screen_name": {
             "type": "string",
-            "description": "The Screen Name Of The User To Friend"
+            "title": "The Screen Name Of The User To Friend"
           },
           "user_id": {
             "type": "string",
-            "description": "The ID Of The User To Friend"
+            "title": "The ID Of The User To Friend"
           }
         },
         "disposition": [
@@ -413,19 +412,19 @@
         "properties": {
           "id_str": {
             "type": "string",
-            "description": "Message ID"
+            "title": "Message ID"
           },
           "sender_id": {
             "type": "string",
-            "description": "Your User ID"
+            "title": "Your User ID"
           },
           "sender_screen_name": {
             "type": "string",
-            "description": "Your Screen Name"
+            "title": "Your Screen Name"
           },
           "text": {
             "type": "string",
-            "description": "The Message You Sent"
+            "title": "The Message You Sent"
           }
         }
       },
@@ -433,11 +432,11 @@
         "properties": {
           "message": {
             "type": "string",
-            "description": "Direct Message Content"
+            "title": "Direct Message Content"
           },
           "user_id": {
             "type": "string",
-            "description": "User ID"
+            "title": "User ID"
           }
         },
         "required": [
