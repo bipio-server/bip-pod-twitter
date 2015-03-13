@@ -400,6 +400,49 @@
         ]
       }
     },
+     "local_tweets": {
+      "title": "On a Local Tweet",
+      "description": "Triggers When A New Local Tweet is Tweeted",
+      "doc_ref": "https://dev.twitter.com/rest/public/search",
+      "description": "Triggers When A New Tweet Matches your location",
+      "trigger": "poll",
+      "config": {
+        "properties": {},
+        "definitions": {}
+      },
+      "exports": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Tweet Text"
+          },
+          "retweeted": {
+            "type": "boolean",
+            "title": "Was Retweeted"
+          },
+          "id": {
+            "type": "string",
+            "title": "ID"
+          },
+          "tweet_url": {
+            "type": "string",
+            "title": "Tweet Direct URL"
+          },
+          "user_name": {
+            "type": "string",
+            "title": "User Name"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created Timestamp"
+          }
+        }
+      },
+      "imports": {
+        "properties": {}
+      }
+    },
+    
     "direct_message": {
       "title": "Send Direct Message",
       "description": "Direct Message Another Twitter User",
