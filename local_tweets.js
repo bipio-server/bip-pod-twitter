@@ -42,7 +42,7 @@ OnLocalTweets.prototype.invoke = function(imports, channel, sysImports, contentP
     var tc = this.pod._getClient(sysImports.auth.oauth);
     var profile=JSON.parse(sysImports.auth.oauth.profile);
     tc.get('/geo/search.json',  { query : profile.location }, function(err, exports) {
-    	if (err) {
+    	if (err) {    
     		next(err);
     	} else {
     			var placeId=exports.result.places[0].id;
