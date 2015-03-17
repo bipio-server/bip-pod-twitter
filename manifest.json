@@ -400,76 +400,51 @@
         ]
       }
     },
-    "new_follower": {
-       "title": "New Follower",
-      "description": "Trigger on a new follower.",
-      "trigger": "poll",
-      "config": {
-        "properties": {
-          "enable_notifications": {
-            "type": "boolean",
-            "default": true,
-            "title": "Enable notifications for the target user"
-          }
-        },
-        "disposition": [
-          "enable_notifications"
-        ]
+     "favorite_tweet": {
+      "title": "On a Tweet favorite",
+      "description": "Triggers When You Favorite A Tweet",
+      "doc_ref": "https://dev.twitter.com/rest/public/search",
+      "trigger": "poll", 
+      "config": {  
+        "properties": {},
+        "definitions": {}
       },
-      "exports": {
+      "exports": { 
         "properties": {
-          "name": {
+          "text": {
+            "type": "string",
+            "title": "Tweet Text"
+          },
+          "retweeted": {
+            "type": "boolean",
+            "title": "Was Retweeted"
+          },
+          "id": {
+            "type": "string",
+            "title": "ID"
+          },
+          "tweet_url": {
+            "type": "string",
+            "title": "Tweet Direct URL"
+          },
+          "user_name": {
             "type": "string",
             "title": "User Name"
           },
-          "screen_name": {
+          "created_at": {
             "type": "string",
-            "title": "User Screen Name"
-          },
-          "id_str": {
-            "type": "string",
-            "title": "User ID (String)"
-          },
-          "profile_image_url": {
-            "type": "string",
-            "title": "Profile Image URL"
-          },
-          "url": {
-            "type": "string",
-            "title": "Profile URL"
-          },
-          "utc_offset": {
-            "type": "string",
-            "title": "UTC Offset"
-          },
-          "description": {
-            "type": "string",
-            "title": "Profile Description"
+            "title": "Created Timestamp"
           }
         }
       },
       "imports": {
-        "properties": {
-          "screen_name": {
-            "type": "string",
-            "title": "The Screen Name Of The User To Friend"
-          },
-          "user_id": {
-            "type": "string",
-            "title": "The ID Of The User To Friend"
-          }
-        },
-        "disposition": [
-          "screen_name",
-          "user_id"
-        ]
+        "properties": {}
       }
     },
      "local_tweets": {
       "title": "On a Local Tweet",
       "description": "Triggers When A New Local Tweet is Tweeted",
       "doc_ref": "https://dev.twitter.com/rest/public/search",
-      "description": "Triggers When A New Tweet Matches your location",
       "trigger": "poll", 
       "config": {  
         "properties": {},
