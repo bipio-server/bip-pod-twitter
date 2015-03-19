@@ -44,7 +44,6 @@ newLink.prototype.invoke = function(imports, channel, sysImports, contentParts, 
     	} else {
     		for (var i = 0; i < exports.length; i++) {
         		if(typeof exports[i].entities.urls[0] == "object"){
-        			console.log(exports[i].entities.urls[0]);
         			next(false, exports[i]);
         		}
     		}
