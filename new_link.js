@@ -19,12 +19,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-function UserTweets() {
+function newLink() {
 }
 
-UserTweets.prototype = {};
+newLink.prototype = {};
 
-UserTweets.prototype.trigger = function(imports, channel, sysImports, contentParts, next) {
+newLink.prototype.trigger = function(imports, channel, sysImports, contentParts, next) {
 	var $resource = this.$resource;
 	this.invoke(imports, channel, sysImports, contentParts, function(err, tweet) {
 		$resource.dupFilter(tweet, 'id', channel, sysImports, function(err, tweet) {
@@ -33,19 +33,24 @@ UserTweets.prototype.trigger = function(imports, channel, sysImports, contentPar
 	});
 }
 
-UserTweets.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
-	var log = this.$resource.log;
+newLink.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
+    var log = this.$resource.log;
     var tc = this.pod._getClient(sysImports.auth.oauth);
     var profile=JSON.parse(sysImports.auth.oauth.profile);
     
     tc.get('/statuses/user_timeline.json',  { screen_name : profile.screen_name }, function(err, exports) {	
-    	if (err) {    
+    	if (err) {
     		next(err);
     	} else {
-    		next(false, exports);
+    		for (var i = 0; i < exports.length; i++) {
+        		if(typeof exports[i].entities.urls[0] == "object"){
+        			console.log(exports[i].entities.urls[0]);
+        			next(false, exports[i]);
+        		}
+    		}
     	}
     });
 }
 
 // -----------------------------------------------------------------------------
-module.exports = UserTweets;
+module.exports = newLink;
