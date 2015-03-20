@@ -42,7 +42,7 @@ OnLocalTweets.prototype.invoke = function(imports, channel, sysImports, contentP
     var tc = this.pod._getClient(sysImports.auth.oauth);
     var profile=JSON.parse(sysImports.auth.oauth.profile);
     tc.get('/geo/search.json',  { query : profile.location }, function(err, exports) {
-    	if (err) {    
+    	if (err) {
     		next(err);
     	} else {
     			var placeId=exports.result.places[0].id;
@@ -51,6 +51,7 @@ OnLocalTweets.prototype.invoke = function(imports, channel, sysImports, contentP
         	    		next(err);
         	    	} else {
         	    		for (var i = 0; i < exports.statuses.length; i++) {
+                            exports.statuses[i].tweet_url = 'https://twitter.com/' + exports.statuses[i].user.screen_name + '/statuses/' + exports.statuses[i].id_str;
         	    			next(false, exports.statuses[i]);
         	    		}
         	    	}

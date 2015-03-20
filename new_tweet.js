@@ -36,13 +36,16 @@ UserTweets.prototype.trigger = function(imports, channel, sysImports, contentPar
 UserTweets.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
 	var log = this.$resource.log;
     var tc = this.pod._getClient(sysImports.auth.oauth);
-    var profile=JSON.parse(sysImports.auth.oauth.profile);
-    
-    tc.get('/statuses/user_timeline.json',  { screen_name : profile.screen_name }, function(err, exports) {	
-    	if (err) {    
+    var profile = JSON.parse(sysImports.auth.oauth.profile);
+
+    tc.get('/statuses/user_timeline.json',  { screen_name : profile.screen_name }, function(err, tweets) {
+    	if (err) {
     		next(err);
     	} else {
-    		next(false, exports);
+            for (var i = 0; i < tweets.length; i++) {
+                tweets[i].tweet_url = 'https://twitter.com/' + tweets[i].user.screen_name + '/statuses/' + tweets[i].id_str;
+        		next(false, tweets[i]);
+            }
     	}
     });
 }

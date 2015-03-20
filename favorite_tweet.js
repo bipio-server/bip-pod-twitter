@@ -1,5 +1,5 @@
 /**
- * 
+ *
  * The Bipio Twitter Pod.  search action definition
  * ---------------------------------------------------------------
  *
@@ -20,41 +20,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function OnFavoriteATweet() {
-}
+ function OnFavoriteATweet() {
+ }
 
-OnFavoriteATweet.prototype = {};
+ OnFavoriteATweet.prototype = {};
 
-OnFavoriteATweet.prototype.trigger = function(imports, channel, sysImports, contentParts, next) {
-        var $resource = this.$resource;
-        console.log("1");
-        this.invoke(imports, channel, sysImports, contentParts, function(err, tweet) {
-                $resource.dupFilter(tweet, 'id', channel, sysImports, function(err, tweet) {
-                        if (!err) {
-                                tweet.user_name = tweet.user.name;
-                                tweet.tweet_url = 'https://twitter.com/' + tweet.user.screen_name + '/statuses/' + tweet.id_str;
-                                console.log("3 "+tweet)
-                        }
-                        next(err, tweet);
-                });
+ OnFavoriteATweet.prototype.trigger = function(imports, channel, sysImports, contentParts, next) {
+    var $resource = this.$resource;
+    this.invoke(imports, channel, sysImports, contentParts, function(err, tweet) {
+        $resource.dupFilter(tweet, 'id', channel, sysImports, function(err, tweet) {
+            if (!err) {
+                tweet.user_name = tweet.user.name;
+                tweet.tweet_url = 'https://twitter.com/' + tweet.user.screen_name + '/statuses/' + tweet.id_str;
+            }
+            next(err, tweet);
         });
+    });
 }
 
 OnFavoriteATweet.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
-        var log = this.$resource.log;
+    var log = this.$resource.log;
     var tc = this.pod._getClient(sysImports.auth.oauth);
     tc.get('/favorites/list.json', imports , function(err, exports) {
         if (err) {
-                next(err);
+            next(err);
         } else {
-                console.log(exports);
-                console.log(exports[0].id);
-
-                for (var i = 0; i < exports.length; i++) {
-                        next(false, exports[i]);
-                }
+            for (var i = 0; i < exports.length; i++) {
+                exports[i].tweet_url = 'https://twitter.com/' + exports[i].user.screen_name + '/statuses/' + exports[i].id_str;
+                next(false, exports[i]);
+            }
         }
-   });
+    });
 
 
 }

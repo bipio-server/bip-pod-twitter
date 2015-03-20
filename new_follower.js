@@ -27,7 +27,7 @@ OnNewFollower.prototype = {};
 OnNewFollower.prototype.trigger = function(imports, channel, sysImports, contentParts, next) {
 	var $resource = this.$resource;
 	this.invoke(imports, channel, sysImports, contentParts, function(err, followersId) {
-		$resource.dupFilter(followersId, 'id', channel, sysImports, function(err, follower) {
+		$resource.dupFilter(followersId, 'id_str', channel, sysImports, function(err, follower) {
 			next(err, follower);
 		});
 
@@ -36,16 +36,18 @@ OnNewFollower.prototype.trigger = function(imports, channel, sysImports, content
 
 OnNewFollower.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
 	var log = this.$resource.log;
-    var tc = this.pod._getClient(sysImports.auth.oauth);
-    var profile = JSON.parse(sysImports.auth.oauth.profile);
-    tc.getFollowersIds(undefined, function(err, exports) {
-        if (err) {
-            log(err, channel, 'error');
-          } else if (exports && exports.length > 0) {
-        	  next(false , exports)
-          }
-    })
+  var tc = this.pod._getClient(sysImports.auth.oauth);
+  var profile = JSON.parse(sysImports.auth.oauth.profile);
 
+  tc.get('/followers/list.json', imports , function(err, exports) {
+      if (err) {
+          next(err);
+      } else {
+          for (var i = 0; i < exports.users.length; i++) {
+            next(false, exports.users[i]);
+          }
+      }
+  });
 }
 
 // -----------------------------------------------------------------------------

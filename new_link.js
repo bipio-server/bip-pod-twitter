@@ -36,15 +36,18 @@ newLink.prototype.trigger = function(imports, channel, sysImports, contentParts,
 newLink.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
     var log = this.$resource.log;
     var tc = this.pod._getClient(sysImports.auth.oauth);
-    var profile=JSON.parse(sysImports.auth.oauth.profile);
-    
-    tc.get('/statuses/user_timeline.json',  { screen_name : profile.screen_name }, function(err, exports) {	
+    var profile = JSON.parse(sysImports.auth.oauth.profile);
+
+    tc.get('/statuses/user_timeline.json',  { trim_user : 1, screen_name : profile.screen_name }, function(err, exports) {
     	if (err) {
     		next(err);
     	} else {
     		for (var i = 0; i < exports.length; i++) {
-        		if(typeof exports[i].entities.urls[0] == "object"){
-        			next(false, exports[i]);
+        		if (exports[i].entities.urls){
+                    for (var j = 0; j < exports[i].entities.urls.length; j++ ) {
+                        next(false, exports[i].entities.urls[j]);
+                    }
+
         		}
     		}
     	}

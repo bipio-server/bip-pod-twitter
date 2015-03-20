@@ -334,22 +334,14 @@
       "imports": {
         "properties": {}
       }
-  	  },
-     "new_follower": {
-       "title": "New Follower",
-      "description": "Trigger on a new follower.",
+	  },
+    "new_follower": {
+      "title": "On A New Follower",
+      "description": "Triggers On A New Follower",
       "trigger": "poll",
       "config": {
         "properties": {
-          "enable_notifications": {
-            "type": "boolean",
-            "default": true,
-            "title": "Enable notifications for the target user"
-          }
-        },
-        "disposition": [
-          "enable_notifications"
-        ]
+        }
       },
       "exports": {
         "properties": {
@@ -363,7 +355,7 @@
           },
           "id_str": {
             "type": "string",
-            "title": "User ID (String)"
+            "title": "User ID"
           },
           "profile_image_url": {
             "type": "string",
@@ -385,84 +377,36 @@
       },
       "imports": {
         "properties": {
-          "screen_name": {
-            "type": "string",
-            "title": "The Screen Name Of The User To Friend"
-          },
-          "user_id": {
-            "type": "string",
-            "title": "The ID Of The User To Friend"
-          }
-        },
-        "disposition": [
-          "screen_name",
-          "user_id"
-        ]
+        }
       }
     },
     "new_link": {
-       "title": "New Link",
-      "description": "Trigger on a new link.",
+      "title": "When You Tweet A Link",
+      "description": "Triggers When You Tweet A Link",
       "trigger": "poll",
-      "config": {
+      "imports": {
         "properties": {
-          "enable_notifications": {
-            "type": "boolean",
-            "default": true,
-            "title": "Enable notifications for the target user"
-          }
-        },
-        "disposition": [
-          "enable_notifications"
-        ]
+        }
       },
       "exports": {
         "properties": {
-          "name": {
-            "type": "string",
-            "title": "User Name"
-          },
-          "screen_name": {
-            "type": "string",
-            "title": "User Screen Name"
-          },
-          "id_str": {
-            "type": "string",
-            "title": "User ID (String)"
-          },
-          "profile_image_url": {
-            "type": "string",
-            "title": "Profile Image URL"
-          },
           "url": {
             "type": "string",
-            "title": "Profile URL"
+            "title": "URL"
           },
-          "utc_offset": {
+          "expanded_url": {
             "type": "string",
-            "title": "UTC Offset"
+            "title": "Expanded URL"
           },
-          "description": {
+          "display_url": {
             "type": "string",
-            "title": "Profile Description"
+            "title": "Display URL"
           }
         }
       },
-      "imports": {
+      "config": {
         "properties": {
-          "screen_name": {
-            "type": "string",
-            "title": "The Screen Name Of The User To Friend"
-          },
-          "user_id": {
-            "type": "string",
-            "title": "The ID Of The User To Friend"
-          }
-        },
-        "disposition": [
-          "screen_name",
-          "user_id"
-        ]
+        }
       }
     },
     "follow_user": {
@@ -474,7 +418,7 @@
           "enable_notifications": {
             "type": "boolean",
             "default": true,
-            "title": "Enable notifications for the target user"
+            "title": "Enable Notifications For The Target User"
           }
         },
         "disposition": [
@@ -531,80 +475,56 @@
       }
     },
     "new_tweet": {
-       "title": "New tweet",
-      "description": "Trigger on a new tweet.",
+      "title": "When You Tweet",
+      "description": "Triggers When You Tweet Something New",
       "trigger": "poll",
       "config": {
         "properties": {
-          "enable_notifications": {
-            "type": "boolean",
-            "default": true,
-            "title": "Enable notifications for the target user"
-          }
-        },
-        "disposition": [
-          "enable_notifications"
-        ]
+        }
       },
       "exports": {
         "properties": {
-          "name": {
+          "text": {
+            "type": "string",
+            "title": "Tweet Text"
+          },
+          "retweeted": {
+            "type": "boolean",
+            "title": "Was Retweeted"
+          },
+          "id": {
+            "type": "string",
+            "title": "ID"
+          },
+          "tweet_url": {
+            "type": "string",
+            "title": "Tweet Direct URL"
+          },
+          "user_name": {
             "type": "string",
             "title": "User Name"
           },
-          "screen_name": {
+          "created_at": {
             "type": "string",
-            "title": "User Screen Name"
-          },
-          "id_str": {
-            "type": "string",
-            "title": "User ID (String)"
-          },
-          "profile_image_url": {
-            "type": "string",
-            "title": "Profile Image URL"
-          },
-          "url": {
-            "type": "string",
-            "title": "Profile URL"
-          },
-          "utc_offset": {
-            "type": "string",
-            "title": "UTC Offset"
-          },
-          "description": {
-            "type": "string",
-            "title": "Profile Description"
+            "title": "Created Timestamp"
           }
         }
       },
       "imports": {
         "properties": {
-          "screen_name": {
-            "type": "string",
-            "title": "The Screen Name Of The User To Friend"
-          },
-          "user_id": {
-            "type": "string",
-            "title": "The ID Of The User To Friend"
-          }
-        },
-        "disposition": [
-          "screen_name",
-          "user_id"
-        ]
+        }
       }
     },
      "favorite_tweet": {
-      "title": "On a Tweet favorite",
+      "title": "When You Favorite A Tweet",
       "description": "Triggers When You Favorite A Tweet",
       "doc_ref": "https://dev.twitter.com/rest/public/search",
-      "trigger": "poll", 
-      "config": {  
+      "trigger": "poll",
+      "config": {
         "properties": {},
         "definitions": {}
       },
-      "exports": { 
+      "exports": {
         "properties": {
           "text": {
             "type": "string",
@@ -638,14 +558,14 @@
     },
      "local_tweets": {
       "title": "On a Local Tweet",
-      "description": "Triggers When A New Local Tweet is Tweeted",
+      "description": "Triggers When There's A New Local Tweet",
       "doc_ref": "https://dev.twitter.com/rest/public/search",
-      "trigger": "poll", 
-      "config": {  
+      "trigger": "poll",
+      "config": {
         "properties": {},
         "definitions": {}
       },
-      "exports": { 
+      "exports": {
         "properties": {
           "text": {
             "type": "string",
@@ -677,7 +597,7 @@
         "properties": {}
       }
     },
-    
+
     "direct_message": {
       "title": "Send Direct Message",
       "description": "Direct Message Another Twitter User",
