@@ -235,6 +235,58 @@
         ]
       }
     },
+     "users_show": {
+      "title": "Get User Profile",
+      "description": "Get User Profile.",
+      "trigger": "poll",
+      "config": {
+            "properties": {},
+        	"definitions": {}
+      },
+      "exports": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "ID"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "screen_name": {
+            "type": "string",
+            "title": "Screen Name"
+          },
+          "profile_location": {
+            "type": "string",
+            "title": "Profile Location"
+          },
+          "location": {
+            "type": "string",
+            "title": "Location"
+          },
+         "followers_count": {
+            "type": "number",
+            "title": "Followers Count"
+          },
+          "friends_count": {
+            "type": "number",
+            "title": "Friends Count"
+          },
+          "geo_enabled": {
+            "type": "boolean",
+            "title": "Geo Enabled"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created Timestamp"
+          }
+        }
+      },
+      "imports": {
+        "properties": {}
+      }
+    },
     "user_mentions": {
       "title": "When You're Mentioned",
       "description": "Gets New Tweets You're Mentioned In",
