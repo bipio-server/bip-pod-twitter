@@ -1,6 +1,6 @@
 /**
  *
- * The Bipio Twitter Pod.  
+ * The Bipio Twitter Pod.   
  * ---------------------------------------------------------------
  *
  * @author Michael Pearson <github@m.bip.io>

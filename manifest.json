@@ -245,7 +245,7 @@
       },
       "exports": {
         "properties": {
-          "id": {
+          "id": { 
             "type": "string",
             "title": "ID"
           },
