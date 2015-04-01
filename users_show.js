@@ -1,6 +1,6 @@
 /**
  *
- * The Bipio Twitter Pod.   
+ * The Bipio Twitter Pod.
  * ---------------------------------------------------------------
  *
  * @author Michael Pearson <github@m.bip.io>
@@ -24,20 +24,10 @@ function UsersShow() {
 
 UsersShow.prototype = {};
 
-UsersShow.prototype.trigger = function(imports, channel, sysImports, contentParts, next) {
-	var $resource = this.$resource;
-	this.invoke(imports, channel, sysImports, contentParts, function(err, exports) {
-		$resource.dupFilter(exports, 'id', channel, sysImports, function(err, userProfile) {
-			next(err, userProfile);
-		});
-	});
-}
-
 UsersShow.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
 	var log = this.$resource.log;
     var tc = this.pod._getClient(sysImports.auth.oauth);
-    var profile = JSON.parse(sysImports.auth.oauth.profile);
-    tc.get('/users/show.json',  { screen_name : profile.screen_name }, function(err, exports) {
+    tc.get('/users/show.json',  { screen_name : imports.screen_name }, function(err, exports) {
     	next(err, exports);
     });
 }
