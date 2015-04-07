@@ -28,14 +28,14 @@ DirectMessage.prototype = {};
 /**
  * Invokes (runs) the action.
  *
- */
+ */ 
 DirectMessage.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
   var log = this.$resource.log;
   var tc = this.pod._getClient(sysImports.auth.oauth);
 
-  var args = {}, id;
+  var params = {include_entities: 1}, id;
   if (channel.config.enable_notifications && this.$resource.helper.isTruthy(channel.config.enable_notifications) ) {
-    args.enable_notifications = true;
+    params.enable_notifications = true;
   }
 
   if ('' !== imports.screen_name) {
@@ -46,13 +46,18 @@ DirectMessage.prototype.invoke = function(imports, channel, sysImports, contentP
       id = undefined;
     }
   }
-
   if (id) {
-    tc.createFriendship(id, args, function(err, exports) {
+	  if (typeof id === 'string'){
+		  params.screen_name = id;
+	  }else{
+		  params.user_id = id;
+		}
+//var url = '/friendships/create.json';
+//tc.createFriendship(id, args, function(err, exports) {
+	  tc.friendships("create",params, sysImports.auth.oauth.access_token, sysImports.auth.oauth.secret,  function(err, exports) {
       if (err) {
         log(err, channel, 'error');
       }
-
       next(err, exports);
     });
   }
