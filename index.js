@@ -31,7 +31,8 @@ Twitter._getClient = function(oauth) {
   });
 }
 Twitter._getMentions = function(oauth, params, callback) {
-	  this.getTimeline("mentions_timeline",params,oauth.access_token,oauth.secret,callback);
+	var tc = Twitter._getClient(oauth);
+	 tc.getTimeline("mentions",params,oauth.access_token,oauth.secret,callback);
 	}
 
 //Twitter._getMentions = function(oauth, params, callback) {
@@ -43,4 +44,4 @@ Twitter._getMentions = function(oauth, params, callback) {
 //}
 
 // -----------------------------------------------------------------------------
-module.exports = Twitter;
+module.exports = Twitter; 

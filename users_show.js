@@ -27,8 +27,9 @@ UsersShow.prototype = {};
 UsersShow.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
 	var log = this.$resource.log;
     var tc = this.pod._getClient(sysImports.auth.oauth);
-    tc.get('/users/show.json',  { screen_name : imports.screen_name }, function(err, exports) {
-    	next(err, exports);
+    tc.users("show", { screen_name : imports.screen_name }, sysImports.auth.oauth.access_token, sysImports.auth.oauth.secret, function(err, response) {
+    //tc.get('/users/show.json',  { screen_name : imports.screen_name }, function(err, exports) {
+    	next(err, exports); 
     });
 }
 

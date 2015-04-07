@@ -50,8 +50,9 @@ UserTimeline.prototype.setup = function(channel, accountInfo, next) {
     }
 
     var tc = this.pod._getClient(accountInfo._setupAuth.oauth);
-    tc.getUserTimeline(args, function(err, response) {
-        if (err) {
+    tc.getTimeline("user", args, accountInfo._setupAuth.oauth.access_token, accountInfo._setupAuth.oauth.secret, function(err, response) {
+    //tc.getUserTimeline(args, function(err, response) {
+        if (err) { 
             var errData = JSON.parse(err.data);
             next(errData.errors ? errData.errors[0].message : errData.error);
         } else {
@@ -145,8 +146,10 @@ UserTimeline.prototype.invoke = function(imports, channel, sysImports, contentPa
     } else if (channel.config.screen_name && '' !== channel.config.screen_name) {
         imports.screen_name = channel.config.screen_name.replace(/^@/, '');
     }
-
-    this.pod._getClient(sysImports.auth.oauth).getUserTimeline(imports, function(err, tweets) {
+    this.pod._getClient(sysImports.auth.oauth).getTimeline("user", imports, sysImports.auth.oauth.access_token, sysImports.auth.oauth.secret, function(err, tweets) {
+    	
+    
+//    this.pod._getClient(sysImports.auth.oauth).getUserTimeline(imports, function(err, tweets) {
          if (err) {
             log(err, channel, 'error');
             next(err, {});
