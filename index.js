@@ -18,27 +18,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-var ntwitter = require('ntwitter');
+var twitterApi = require('node-twitter-api');
 
 var Pod = require('bip-pod'),
 Twitter = new Pod();
 
 Twitter._getClient = function(oauth) {
-  return new ntwitter({
-    consumer_key : oauth.consumerKey,
-    consumer_secret : oauth.consumerSecret,
-    access_token_key : oauth.access_token,
-    access_token_secret : oauth.secret
+  return new twitterApi({
+	  consumerKey : oauth.consumerKey,
+	  consumerSecret : oauth.consumerSecret,
+      callback: 'http://elie.bipio.wot/'
   });
 }
-
 Twitter._getMentions = function(oauth, params, callback) {
-  this._getClient(oauth).get(
-    '/statuses/mentions_timeline.json',
-    params,
-    callback
-  );
-}
+	  this.getTimeline("mentions_timeline",params,oauth.access_token,oauth.secret,callback);
+	}
+
+//Twitter._getMentions = function(oauth, params, callback) {
+//  this._getClient(oauth).get(
+//    '/statuses/mentions_timeline.json',
+//    params,
+//    callback
+//  );
+//}
 
 // -----------------------------------------------------------------------------
 module.exports = Twitter;

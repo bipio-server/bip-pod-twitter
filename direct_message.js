@@ -31,7 +31,15 @@ DirectMessage.prototype = {};
  */
 DirectMessage.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
   var tc = this.pod._getClient(sysImports.auth.oauth);
-  tc.newDirectMessage(imports.user_id, imports.message, next);
+  // tc.newDirectMessage(imports.user_id, imports.message, next); 
+  var params = {
+		    user :imports.user_id,
+	        text : imports.message
+	    };
+	    if (channel.config.screen_name && '' !== channel.config.screen_name) {
+	    	params.screen_name = channel.config.screen_name.replace(/^@/, '');
+	    }
+   tc.direct_messages("new", params, sysImports.auth.oauth.access_token, sysImports.auth.oauth.secret, next);
 }
 
 // -----------------------------------------------------------------------------
