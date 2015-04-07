@@ -34,32 +34,52 @@ EachFollower.prototype.invoke = function(imports, channel, sysImports, contentPa
     log = $resource.log,
     tc = this.pod._getClient(sysImports.auth.oauth);
 
-  tc.getFollowersIds(undefined, function(err, exports) {
+  var profile = JSON.parse(sysImports.auth.oauth.profile);
+  
+  var params = { 
+		  screen_name : profile.screen_name
+	    };
+	    if (channel.config.screen_name && '' !== channel.config.screen_name) {
+	    	params.screen_name = channel.config.screen_name.replace(/^@/, '');
+	    }
+	    
+//  tc.getFollowersIds(undefined, function(err, exports) {
+  tc.followers("ids", params, sysImports.auth.oauth.access_token, sysImports.auth.oauth.secret, function(err, exports) {	
     if (err) {
       log(err, channel, 'error');
-    } else if (exports && exports.length > 0) {
-      var batch = [],
-        isMutual = $resource.helper.isTruthy(channel.config.me_following);
-
-      do {
-        batch = exports.splice(0, 100);
-        if (batch.length > 0) {
-          tc.showUser(batch.join(','), function(err, exports) {
-            if (err) {
-              log(err, channel, 'error');
-            } else {
-              for (var i = 0; i < exports.length; i++) {
-                if (isMutual && exports[i].following) {
-                  next(false, exports[i]);
-                } else {
-                  next(false, exports[i]);
-                }
-              }
-            }
-          });
-        }
-      } while (batch.length > 0);
-    }
+    } else{ 
+    	var ids;
+    	if(exports){
+    		ids=exports.ids;
+    	}
+    	
+    	if (ids.length > 0) {
+	      var batch = [],
+	        isMutual = $resource.helper.isTruthy(channel.config.me_following);
+	
+	      do {
+	        batch = ids.splice(0, 100);
+	        if (batch.length > 0) {
+	        	 var lookupParams = {
+	        			 user_id : batch.join(',')
+	        		    };
+	          tc.users("lookup",lookupParams, sysImports.auth.oauth.access_token, sysImports.auth.oauth.secret, function(err, ids) {
+	            if (err) {
+	              log(err, channel, 'error');
+	            } else {
+	              for (var i = 0; i < ids.length; i++) {
+	                if (isMutual && ids[i].following) {
+	                  next(false, ids[i]);
+	                } else {
+	                  next(false, ids[i]);
+	                }
+	              }
+	            }
+	          });
+	        }
+	      } while (batch.length > 0);
+	     }
+  		}
   });
 }
 
