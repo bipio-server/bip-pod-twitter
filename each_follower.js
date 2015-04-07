@@ -39,9 +39,9 @@ EachFollower.prototype.invoke = function(imports, channel, sysImports, contentPa
   var params = { 
 		  screen_name : profile.screen_name
 	    };
-	    if (channel.config.screen_name && '' !== channel.config.screen_name) {
-	    	params.screen_name = channel.config.screen_name.replace(/^@/, '');
-	    }
+//	    if (channel.config.screen_name && '' !== channel.config.screen_name) {
+//	     	params.screen_name = channel.config.screen_name.replace(/^@/, '');
+//	    }
 	    
 //  tc.getFollowersIds(undefined, function(err, exports) {
   tc.followers("ids", params, sysImports.auth.oauth.access_token, sysImports.auth.oauth.secret, function(err, exports) {	
