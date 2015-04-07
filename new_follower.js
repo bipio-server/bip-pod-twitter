@@ -38,8 +38,11 @@ OnNewFollower.prototype.invoke = function(imports, channel, sysImports, contentP
 	var log = this.$resource.log;
   var tc = this.pod._getClient(sysImports.auth.oauth);
   var profile = JSON.parse(sysImports.auth.oauth.profile);
-
-  tc.get('/followers/list.json', imports , function(err, exports) {
+  
+  var params = {  
+		  screen_name : profile.screen_name
+	    };
+  tc.followers("list", params, sysImports.auth.oauth.access_token, sysImports.auth.oauth.secret, function(err, exports) {	
       if (err) {
           next(err);
       } else {
