@@ -41,7 +41,14 @@
 OnFavoriteATweet.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
     var log = this.$resource.log;
     var tc = this.pod._getClient(sysImports.auth.oauth);
-    tc.get('/favorites/list.json', imports , function(err, exports) {
+
+    var profile = JSON.parse(sysImports.auth.oauth.profile);
+    var params = { 
+  		  screen_name : profile.screen_name
+  	    };
+     
+    tc.favorites("list", params, sysImports.auth.oauth.access_token, sysImports.auth.oauth.secret, function(err, exports) {
+    //tc.get('/favorites/list.json', imports , function(err, exports) {
         if (err) {
             next(err);
         } else {
