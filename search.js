@@ -41,7 +41,8 @@ Search.prototype.invoke = function(imports, channel, sysImports, contentParts, n
     var log = this.$resource.log;
     var tc = this.pod._getClient(sysImports.auth.oauth);
 
-    tc.get('/search/tweets.json', imports, function(err, exports) {
+   // tc.get('/search/tweets.json', imports, function(err, exports) {
+    	tc.search(imports,sysImports.auth.oauth.access_token, sysImports.auth.oauth.secret, function(err, exports){
     	if (err) {
     		next(err);
     	} else {
