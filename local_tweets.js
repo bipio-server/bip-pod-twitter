@@ -40,19 +40,21 @@ OnLocalTweets.prototype.trigger = function(imports, channel, sysImports, content
 OnLocalTweets.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
 	var log = this.$resource.log;
     var tc = this.pod._getClient(sysImports.auth.oauth);
-    var profile=JSON.parse(sysImports.auth.oauth.profile);
-    tc.get('/geo/search.json',  { query : profile.location }, function(err, exports) {
+    var profile = JSON.parse(sysImports.auth.oauth.profile);
+    //tc.get('/geo/search.json',  { query : profile.location }, function(err, exports) {
+    tc.geo('search',{ query : profile.location }, sysImports.auth.oauth.access_token, sysImports.auth.oauth.secret, function(err, exports) {
     	if (err) {
     		next(err);
     	} else {
-    			var placeId=exports.result.places[0].id;
-        	    tc.get('/search/tweets.json',  { q : 'place:'+placeId}, function(err, exports) {
+    			var placeId = exports.result.places[0].id;
+        	   // tc.get('/search/tweets.json',  { q : 'place:'+placeId}, function(err, exports) {
+    		    tc.search({ q : 'place:'+placeId}, sysImports.auth.oauth.access_token, sysImports.auth.oauth.secret, function(err, exports) {
         	    	if (err) {
         	    		next(err);
         	    	} else {
         	    		for (var i = 0; i < exports.statuses.length; i++) {
                             exports.statuses[i].tweet_url = 'https://twitter.com/' + exports.statuses[i].user.screen_name + '/statuses/' + exports.statuses[i].id_str;
-        	    			next(false, exports.statuses[i]);
+                            next(false, exports.statuses[i]);
         	    		}
         	    	}
         	    });

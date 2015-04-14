@@ -38,11 +38,12 @@ UserTweets.prototype.invoke = function(imports, channel, sysImports, contentPart
     var tc = this.pod._getClient(sysImports.auth.oauth);
     var profile = JSON.parse(sysImports.auth.oauth.profile);
 
-    tc.get('/statuses/user_timeline.json',  { screen_name : profile.screen_name }, function(err, tweets) {
+ //   tc.get('/statuses/user_timeline.json',  { screen_name : profile.screen_name }, function(err, tweets) {
+    tc.getTimeline('user_timeline',{screen_name:  profile.screen_name }, sysImports.auth.oauth.access_token, sysImports.auth.oauth.secret, function(err, tweets) {	
     	if (err) {
     		next(err);
     	} else {
-            for (var i = 0; i < tweets.length; i++) {
+    		for (var i = 0; i < tweets.length; i++) {
                 tweets[i].tweet_url = 'https://twitter.com/' + tweets[i].user.screen_name + '/statuses/' + tweets[i].id_str;
         		next(false, tweets[i]);
             }

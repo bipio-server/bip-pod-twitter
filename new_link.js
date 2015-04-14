@@ -28,7 +28,7 @@ newLink.prototype.trigger = function(imports, channel, sysImports, contentParts,
 	var $resource = this.$resource;
 	this.invoke(imports, channel, sysImports, contentParts, function(err, tweet) {
 		$resource.dupFilter(tweet, 'id', channel, sysImports, function(err, tweet) {
-			next(err, tweet);
+			next(err, tweet.entities.urls[0]);
 		});
 	});
 }
@@ -38,14 +38,15 @@ newLink.prototype.invoke = function(imports, channel, sysImports, contentParts, 
     var tc = this.pod._getClient(sysImports.auth.oauth);
     var profile = JSON.parse(sysImports.auth.oauth.profile);
 
-    tc.get('/statuses/user_timeline.json',  { trim_user : 1, screen_name : profile.screen_name }, function(err, exports) {
+   // tc.get('/statuses/user_timeline.json',  { trim_user : 1, screen_name : profile.screen_name }, function(err, exports) {
+    tc.getTimeline('user_timeline',{trim_user : 1,screen_name:  profile.screen_name }, sysImports.auth.oauth.access_token, sysImports.auth.oauth.secret, function(err, exports) {	
     	if (err) {
     		next(err);
     	} else {
     		for (var i = 0; i < exports.length; i++) {
         		if (exports[i].entities.urls){
                     for (var j = 0; j < exports[i].entities.urls.length; j++ ) {
-                        next(false, exports[i].entities.urls[j]);
+                    	next(false, exports[i]);
                     }
 
         		}
