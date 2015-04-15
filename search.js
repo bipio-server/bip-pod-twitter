@@ -30,7 +30,7 @@ Search.prototype.trigger = function(imports, channel, sysImports, contentParts, 
 		$resource.dupFilter(tweet, 'id', channel, sysImports, function(err, tweet) {
 			if (!err) {
 				tweet.user_name = tweet.user.name;
-				tweet.tweet_url = 'https://twitter.com/' + tweet.user.screen_name + '/statuses/' + tweet.id_str;
+				tweet.tweet_url = 'https://twitter.com/' + tweet.user.screen_name + '/statuses/' + tweet.id_str;		
 			}
 			next(err, tweet);
 		});
@@ -38,16 +38,14 @@ Search.prototype.trigger = function(imports, channel, sysImports, contentParts, 
 }
 
 Search.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
-    var log = this.$resource.log;
     var tc = this.pod._getClient(sysImports.auth.oauth);
 
-   // tc.get('/search/tweets.json', imports, function(err, exports) {
-    	tc.search(imports,sysImports.auth.oauth.access_token, sysImports.auth.oauth.secret, function(err, exports){
+    	tc.search(imports,sysImports.auth.oauth.access_token, sysImports.auth.oauth.secret, function(err, exports){   	
     	if (err) {
     		next(err);
     	} else {
     		for (var i = 0; i < exports.statuses.length; i++) {
-    			next(false, exports.statuses[i]);
+    			next(err, exports.statuses[i]);
     		}
     	}
     });

@@ -32,9 +32,13 @@ StatusUpdate.prototype = {};
 StatusUpdate.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
     var log = this.$resource.log;
     var tc = this.pod._getClient(sysImports.auth.oauth);
-
-    tc.updateStatus(imports.status, function(err, exports) {
-        next(err, exports);
+    tc.statuses("update",imports.status,sysImports.auth.oauth.access_token, sysImports.auth.oauth.secret, function(err, exports) {
+        if(err){
+        	next(err);
+        }
+        else{
+        	next(err, exports);
+        }
     });
 }
 
