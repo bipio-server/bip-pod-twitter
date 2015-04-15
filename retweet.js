@@ -28,26 +28,15 @@ Retweet.prototype = {};
  * Invokes (runs) the action.
  *
  */
-Retweet.prototype.trigger = function(imports, channel, sysImports, contentParts, next) {
-	var $resource = this.$resource;
-	this.invoke(imports, channel, sysImports, contentParts, function(err, tweet) {
-			if(err){
-				next(err);
-			}
-			else{
-				next(err, tweet.entities.urls[0]);
-			}
-	});
-}
-
 Retweet.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
+	var $resource = this.$resource;
     var log = this.$resource.log;
     var tc = this.pod._getClient(sysImports.auth.oauth);
 		tc.statuses("retweets",imports,sysImports.auth.oauth.access_token, sysImports.auth.oauth.secret, function(err, exports) {
-			if (err) {
+		if (err) {
     		next(err);
     	} else {
-    		next(err,exports);
+    		next(err, exports.entities.urls[0]);
     	}
     });
 }
