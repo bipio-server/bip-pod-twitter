@@ -31,14 +31,12 @@ Retweet.prototype = {};
 Retweet.prototype.trigger = function(imports, channel, sysImports, contentParts, next) {
 	var $resource = this.$resource;
 	this.invoke(imports, channel, sysImports, contentParts, function(err, tweet) {
-		$resource.dupFilter(tweet, 'id', channel, sysImports, function(err, tweet) {
 			if(err){
 				next(err);
 			}
 			else{
 				next(err, tweet.entities.urls[0]);
 			}
-		});
 	});
 }
 
