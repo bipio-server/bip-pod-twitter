@@ -19,17 +19,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-function DirectMessage(podConfig) {
+function FollowUser(podConfig) {
   this.podConfig = podConfig;
 }
 
-DirectMessage.prototype = {};
+FollowUser.prototype = {};
 
 /**
  * Invokes (runs) the action.
  *
- */ 
-DirectMessage.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
+ */
+FollowUser.prototype.invoke = function(imports, channel, sysImports, contentParts, next) {
   var log = this.$resource.log;
   var tc = this.pod._getClient(sysImports.auth.oauth);
 
@@ -64,4 +64,4 @@ DirectMessage.prototype.invoke = function(imports, channel, sysImports, contentP
 }
 
 // -----------------------------------------------------------------------------
-module.exports = DirectMessage;
+module.exports = FollowUser;
