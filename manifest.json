@@ -58,7 +58,7 @@
             "type": "boolean",
             "title": "Was Retweeted"
           },
-          "id": {
+          "id_str": {
             "type": "string",
             "title": "ID"
           },
@@ -115,7 +115,7 @@
             "type": "boolean",
             "title": "Was Retweeted"
           },
-          "id": {
+          "id_str": {
             "type": "string",
             "title": "ID"
           },
@@ -158,7 +158,7 @@
       },
       "exports": {
         "properties": {
-          "id": {
+          "id_str": {
             "type": "string",
             "title": "Tweet ID"
           }
@@ -209,7 +209,7 @@
             "type": "boolean",
             "title": "Was Retweeted"
           },
-          "id": {
+          "id_str": {
             "type": "string",
             "title": "ID"
           },
@@ -245,7 +245,7 @@
       },
       "exports": {
         "properties": {
-          "id": {
+          "id_str": {
             "type": "string",
             "title": "ID"
           },
@@ -316,7 +316,7 @@
             "type": "boolean",
             "title": "Was Retweeted"
           },
-          "id": {
+          "id_str": {
             "type": "string",
             "title": "ID"
           },
@@ -555,7 +555,7 @@
             "type": "boolean",
             "title": "Was Retweeted"
           },
-          "id": {
+          "id_str": {
             "type": "string",
             "title": "ID"
           },
@@ -597,7 +597,7 @@
             "type": "boolean",
             "title": "Was Retweeted"
           },
-          "id": {
+          "id_str": {
             "type": "string",
             "title": "ID"
           },
@@ -638,7 +638,7 @@
             "type": "boolean",
             "title": "Was Retweeted"
           },
-          "id": {
+          "id_str": {
             "type": "string",
             "title": "ID"
           },
