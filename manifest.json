@@ -61,7 +61,7 @@
           "id_str": {
             "type": "string",
             "title": "ID"
-          },
+          }, 
           "tweet_url": {
             "type": "string",
             "title": "Tweet Direct URL"
