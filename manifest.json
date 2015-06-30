@@ -392,16 +392,7 @@
             "type": "string",
             "title": "Profile Description"
           }
-        },
-        "disposition": [
-        	"name",
-        	"screen_name",
-        	"id_str",
-        	"profile_image_url",
-        	"url",
-        	"utc_offset",
-        	"description"
-        	]
+        }
       },
       "imports": {
         "properties": {}
@@ -445,16 +436,7 @@
             "type": "string",
             "title": "Profile Description"
           }
-        },
-        "disposition": [
-        	"name",
-        	"screen_name",
-        	"id_str",
-        	"profile_image_url",
-        	"url",
-        	"utc_offset",
-        	"description"
-        	]
+        }
       },
       "imports": {
         "properties": {
@@ -483,12 +465,7 @@
             "type": "string",
             "title": "Display URL"
           }
-        },
-        "disposition": [
-        	"url",
-        	"expanded_url",
-        	"display_url"
-        	]
+        }
       },
       "config": {
         "properties": {
@@ -541,16 +518,7 @@
             "type": "string",
             "title": "Profile Description"
           }
-        },
-        "disposition": [
-        	"name",
-        	"screen_name",
-        	"id_str",
-        	"profile_image_url",
-        	"url",
-        	"utc_offset",
-        	"description"
-        	]
+        }
       },
       "imports": {
         "properties": {
@@ -603,15 +571,7 @@
             "type": "string",
             "title": "Created Timestamp"
           }
-        },
-        "disposition": [
-        	"text",
-        	"retweeted",
-        	"id",
-        	"tweet_url",
-        	"user_name",
-        	"created_at"
-        	]
+        }
       },
       "imports": {
         "properties": {
@@ -653,15 +613,7 @@
             "type": "string",
             "title": "Created Timestamp"
           }
-        },
-        "disposition": [
-        	"text",
-        	"retweeted",
-        	"id",
-        	"tweet_url",
-        	"user_name",
-        	"created_at"
-        	]
+        }
       },
       "imports": {
         "properties": {}
@@ -702,15 +654,7 @@
             "type": "string",
             "title": "Created Timestamp"
           }
-        },
-        "disposition": [
-        	"text",
-        	"retweeted",
-        	"id",
-        	"tweet_url",
-        	"user_name",
-        	"created_at"
-        	]
+        }
       },
       "imports": {
         "properties": {}

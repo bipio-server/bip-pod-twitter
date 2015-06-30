@@ -140,10 +140,10 @@ UserTimeline.prototype.invoke = function(imports, channel, sysImports, contentPa
         dao = $resource.dao,
         log = $resource.log;
 
-    if (channel.config.user_id && '' !== channel.config.user_id) {
-        imports.user_id = channel.config.user_id;
-    } else if (channel.config.screen_name && '' !== channel.config.screen_name) {
-        imports.screen_name = channel.config.screen_name.replace(/^@/, '');
+    if (imports.user_id && '' !== imports.user_id) {
+        imports.user_id = imports.user_id;
+    } else if (imports.screen_name && '' !== imports.screen_name) {
+        imports.screen_name = imports.screen_name.replace(/^@/, '');
     }
 
     this.pod._getClient(sysImports.auth.oauth).getUserTimeline(imports, function(err, tweets) {

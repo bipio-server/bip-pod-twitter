@@ -39,7 +39,7 @@ EachFollower.prototype.invoke = function(imports, channel, sysImports, contentPa
       log(err, channel, 'error');
     } else if (exports && exports.length > 0) {
       var batch = [],
-        isMutual = $resource.helper.isTruthy(channel.config.me_following);
+        isMutual = $resource.helper.isTruthy(imports.me_following);
 
       do {
         batch = exports.splice(0, 100);
