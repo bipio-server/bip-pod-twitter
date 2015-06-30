@@ -36,7 +36,9 @@ Retweet.prototype.invoke = function(imports, channel, sysImports, contentParts, 
 		if (err) {
     		next(err);
     	} else {
-    		next(err, exports.entities.urls[0]);
+    		if (exports.entities){
+    			next(err, exports.entities.urls[0]);
+    		}
     	}
     });
 }
