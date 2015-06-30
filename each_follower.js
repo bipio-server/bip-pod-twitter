@@ -39,8 +39,8 @@ EachFollower.prototype.invoke = function(imports, channel, sysImports, contentPa
   var params = { 
 		  screen_name : profile.screen_name
 	    };
-//	    if (channel.config.screen_name && '' !== channel.config.screen_name) {
-//	     	params.screen_name = channel.config.screen_name.replace(/^@/, '');
+//	    if (imports.screen_name && '' !== imports.screen_name) {
+//	     	params.screen_name = imports.screen_name.replace(/^@/, '');
 //	    }
 	    
 //  tc.getFollowersIds(undefined, function(err, exports) {
@@ -55,7 +55,7 @@ EachFollower.prototype.invoke = function(imports, channel, sysImports, contentPa
     	
     	if (ids.length > 0) {
 	      var batch = [],
-	        isMutual = $resource.helper.isTruthy(channel.config.me_following);
+	        isMutual = $resource.helper.isTruthy(imports.me_following);
 	
 	      do {
 	        batch = ids.splice(0, 100);

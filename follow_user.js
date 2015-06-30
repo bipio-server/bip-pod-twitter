@@ -34,7 +34,7 @@ FollowUser.prototype.invoke = function(imports, channel, sysImports, contentPart
   var tc = this.pod._getClient(sysImports.auth.oauth);
 
   var params = {include_entities: 1}, id;
-  if (channel.config.enable_notifications && this.$resource.helper.isTruthy(channel.config.enable_notifications) ) {
+  if (imports.enable_notifications && this.$resource.helper.isTruthy(imports.enable_notifications) ) {
     params.enable_notifications = true;
   }
 

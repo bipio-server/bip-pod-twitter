@@ -52,7 +52,7 @@ UserTimeline.prototype.setup = function(channel, accountInfo, next) {
     var tc = this.pod._getClient(accountInfo._setupAuth.oauth);
     tc.getTimeline("user", args, accountInfo._setupAuth.oauth.access_token, accountInfo._setupAuth.oauth.secret, function(err, response) {
     //tc.getUserTimeline(args, function(err, response) {
-        if (err) { 
+        if (err) {
             var errData = JSON.parse(err.data);
             next(errData.errors ? errData.errors[0].message : errData.error);
         } else {
@@ -141,31 +141,21 @@ UserTimeline.prototype.invoke = function(imports, channel, sysImports, contentPa
         dao = $resource.dao,
         log = $resource.log;
 
-    if (channel.config.user_id && '' !== channel.config.user_id) {
-        imports.user_id = channel.config.user_id;
-    } else if (channel.config.screen_name && '' !== channel.config.screen_name) {
-        imports.screen_name = channel.config.screen_name.replace(/^@/, '');
+    if (imports.user_id && '' !== imports.user_id) {
+        imports.user_id = imports.user_id;
+    } else if (imports.screen_name && '' !== imports.screen_name) {
+        imports.screen_name = imports.screen_name.replace(/^@/, '');
     }
     this.pod._getClient(sysImports.auth.oauth).getTimeline("user", imports, sysImports.auth.oauth.access_token, sysImports.auth.oauth.secret, function(err, tweets) {
-    	
-    
-//    this.pod._getClient(sysImports.auth.oauth).getUserTimeline(imports, function(err, tweets) {
          if (err) {
             log(err, channel, 'error');
             next(err, {});
          } else {
-
             for (var i = 0; i < tweets.length; i++) {
-                // don't export everything from user timeline yet.
+                tweets[i].tweet_url = 'https://twitter.com/' + tweets[i].user.screen_name + '/statuses/' + tweets[i].id_str;
                 next(
                    false,
-                   {
-                       id : tweets[i].id_str,
-                       created_at : tweets[i].created_at,
-                       text : tweets[i].text,
-                       retweeted : tweets[i].retweeted,
-                       tweet_url : 'https://twitter.com/' + tweets[i].user.screen_name + '/statuses/' + tweets[i].id_str
-                   }
+                   tweets[i]
                 );
             }
          }
