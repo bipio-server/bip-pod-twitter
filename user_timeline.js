@@ -97,8 +97,11 @@ UserTimeline.prototype.trigger = function(imports, channel, sysImports, contentP
             log(err, channel, 'error');
             next(err, {});
         } else {
-            imports.since_id = result.last_id_str;
             var lastId;
+
+            if (result) {
+                imports.since_id = result.last_id_str;
+            }
 
             self.invoke(imports, channel, sysImports, contentParts, function(err, exports) {
                 if (err) {
