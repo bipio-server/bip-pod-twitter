@@ -103,7 +103,13 @@
             "title": "Search For"
           }
         },
-        "definitions": {}
+        "definitions": {},
+        "required": [
+          "q"
+        ],
+        "disposition": [
+          "q"
+        ]
       },
       "exports": {
         "properties": {
