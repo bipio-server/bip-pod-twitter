@@ -23,6 +23,10 @@ var ntwitter = require('ntwitter');
 var Pod = require('bip-pod'),
 Twitter = new Pod();
 
+Twitter.profileReprOAuth = function(profile) {
+  return profile.screen_name;
+}
+
 Twitter._getClient = function(oauth) {
   return new ntwitter({
     consumer_key : oauth.consumerKey,
