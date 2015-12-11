@@ -24,7 +24,7 @@ var Pod = require('bip-pod'),
 Twitter = new Pod();
 
 Twitter.profileReprOAuth = function(profile) {
-  return profile.screen_name;
+  return '@' + profile.screen_name;
 }
 
 Twitter._getClient = function(oauth) {
